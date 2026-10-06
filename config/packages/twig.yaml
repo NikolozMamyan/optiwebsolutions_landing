@@ -8,6 +8,7 @@ twig:
         contact_phone_display: '%env(CONTACT_PHONE_DISPLAY)%'
         whatsapp_number: '%env(WHATSAPP_NUMBER)%'
         calcom_event: '%env(CALCOM_EVENT)%'
+        google_analytics_id: '%env(default::GOOGLE_ANALYTICS_ID)%'
 
 when@test:
     twig:

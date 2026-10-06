@@ -17,6 +17,7 @@
             <li><strong>{{ 'Rendez-vous :'|trans }}</strong> {{ 'nom, e-mail, créneau choisi et réponses aux champs demandés dans le calendrier Cal.com.'|trans }}</li>
             <li><strong>{{ 'Fonctionnement technique :'|trans }}</strong> {{ 'l’adresse IP et les informations nécessaires à l’acheminement des requêtes sont transmises à l’hébergeur. Des journaux techniques peuvent être produits pour la sécurité et le diagnostic des incidents.'|trans }}</li>
             <li><strong>{{ 'Préférence d’affichage :'|trans }}</strong> {{ 'votre choix de thème clair ou sombre est conservé dans le stockage local de votre navigateur.'|trans }}</li>
+            {% if analytics_enabled %}<li><strong>{{ 'analytics.privacy.label'|trans }}</strong> {{ 'analytics.privacy.data'|trans }}</li>{% endif %}
         </ul>
         <p>{{ 'Le site vitrine ne propose pas de compte utilisateur, de paiement en ligne ni de formulaire de contact interne. Les informations demandées par Cal.com pour réserver sont indiquées dans son interface. Vous pouvez choisir un autre moyen de contact.'|trans }}</p>
     </section>
@@ -28,7 +29,7 @@
             <li><strong>{{ 'Facturer et conserver les justificatifs obligatoires :'|trans }}</strong> {{ 'respect des obligations légales.'|trans }}</li>
             <li><strong>{{ 'Assurer la disponibilité et la sécurité du site :'|trans }}</strong> {{ 'intérêt légitime à maintenir un service fiable et à prévenir les incidents.'|trans }}</li>
         </ul>
-        <p>{{ 'Les données ne sont pas vendues. Le site n’intègre actuellement aucun outil de mesure d’audience, de publicité ciblée ou de rejeu de sessions.'|trans }}</p>
+        {% if analytics_enabled %}<p>{{ 'analytics.privacy.purpose'|trans }}</p>{% else %}<p>{{ 'Les données ne sont pas vendues. Le site n’intègre actuellement aucun outil de mesure d’audience, de publicité ciblée ou de rejeu de sessions.'|trans }}</p>{% endif %}
     </section>
     <section>
         <h2>{{ '4. Destinataires et services externes'|trans }}</h2>
@@ -38,6 +39,7 @@
             <li><strong>{{ 'Cal.com :'|trans }}</strong> {{ 'affichage du calendrier et gestion des réservations. Lorsque le calendrier se charge sur la page contact, votre navigateur communique avec ce service, notamment pour lui transmettre les informations techniques de connexion.'|trans }}</li>
             <li><strong>{{ 'WhatsApp :'|trans }}</strong> {{ 'lorsque vous choisissez ce canal, vos échanges passent par ce service, selon les règles applicables à votre compte.'|trans }}</li>
             <li><strong>{{ 'Services de messagerie :'|trans }}</strong> {{ 'acheminement et traitement des e-mails que vous nous adressez.'|trans }}</li>
+            {% if analytics_enabled %}<li><strong>Google Analytics 4 :</strong> {{ 'analytics.privacy.provider'|trans }} <a href="https://policies.google.com/privacy?hl={{ app.request.locale }}" target="_blank" rel="noopener noreferrer">{{ 'analytics.privacy.google_policy'|trans }}</a>.</li>{% endif %}
         </ul>
         <p>{{ 'Cal.com indique traiter des données aux États-Unis et recourir, selon les cas, au cadre de protection des données UE–États-Unis ou aux clauses contractuelles types. WhatsApp décrit également des transferts internationaux dans sa politique. Consultez la'|trans }} <a href="https://cal.com/privacy" target="_blank" rel="noopener noreferrer">{{ 'politique de Cal.com'|trans }}</a> {{ 'et celle de'|trans }} <a href="https://www.whatsapp.com/legal/privacy-policy-eea" target="_blank" rel="noopener noreferrer">{{ 'WhatsApp pour l’Espace économique européen'|trans }}</a> {{ 'pour leurs modalités et garanties.'|trans }}</p>
     </section>
@@ -50,12 +52,13 @@
             <li><strong>{{ 'Pièces comptables et factures :'|trans }}</strong> {{ 'dix ans à compter de la clôture de l’exercice concerné.'|trans }}</li>
             <li><strong>{{ 'Journaux techniques :'|trans }}</strong> {{ 'selon les paramètres de l’hébergement, pour la durée nécessaire au diagnostic, à la sécurité et aux obligations applicables.'|trans }}</li>
             <li><strong>{{ 'Préférence de thème :'|trans }}</strong> {{ 'jusqu’à sa modification ou à l’effacement du stockage local dans votre navigateur.'|trans }}</li>
+            {% if analytics_enabled %}<li><strong>{{ 'analytics.privacy.label'|trans }}</strong> {{ 'analytics.privacy.retention'|trans }}</li>{% endif %}
         </ul>
         <p>{{ 'Les services externes appliquent leurs propres règles aux données qu’ils traitent pour leur fonctionnement. Une suppression auprès de'|trans }} {{ site_name }} {{ 'ne ferme pas votre compte chez ces fournisseurs.'|trans }}</p>
     </section>
     <section>
         <h2>{{ '6. Cookies et stockage local'|trans }}</h2>
-        <p>{{ 'Le site mémorise uniquement sa préférence de thème dans le stockage local, sous la clé'|trans }} <code>{{ 'optiwebsolutions-theme'|trans }}</code>{{ '. Cette préférence d’interface reste sur votre appareil ; elle ne sert pas à suivre vos visites. Vous pouvez l’effacer depuis les paramètres de votre navigateur.'|trans }}</p>
+        {% if analytics_enabled %}<p>{{ 'analytics.privacy.storage'|trans }}</p>{% else %}<p>{{ 'Le site mémorise uniquement sa préférence de thème dans le stockage local, sous la clé'|trans }} <code>{{ 'optiwebsolutions-theme'|trans }}</code>{{ '. Cette préférence d’interface reste sur votre appareil ; elle ne sert pas à suivre vos visites. Vous pouvez l’effacer depuis les paramètres de votre navigateur.'|trans }}</p>{% endif %}
         <p>{{ 'Les polices et les images du site sont hébergées localement. Le calendrier intégré dépend de Cal.com, qui décrit ses cookies de connexion, de préférence et de sécurité dans sa'|trans }} <a href="https://cal.com/privacy" target="_blank" rel="noopener noreferrer">{{ 'politique de confidentialité'|trans }}</a>{{ '. L’ouverture d’un lien externe vous soumet aux paramètres et aux règles du service visité.'|trans }}</p>
     </section>
     <section>

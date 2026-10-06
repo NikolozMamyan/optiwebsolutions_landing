@@ -1186,5 +1186,18 @@
     "blog.agents.faq.2.question": "Un agent IA peut-il envoyer des messages tout seul ?",
     "blog.agents.faq.2.answer": "Seulement si le système lui donne une fonction d’envoi et les permissions correspondantes. Pour un premier projet, vous pouvez conserver la préparation des brouillons et demander une validation humaine avant l’envoi.",
     "blog.agents.faq.3.question": "Combien coûte un agent IA pour une PME ?",
-    "blog.agents.faq.3.answer": "Le coût varie selon la solution, les connexions, le volume d’utilisation et le suivi demandé. Préparez un périmètre de pilote et demandez une estimation qui distingue configuration, intégration, consommation et maintenance."
+    "blog.agents.faq.3.answer": "Le coût varie selon la solution, les connexions, le volume d’utilisation et le suivi demandé. Préparez un périmètre de pilote et demandez une estimation qui distingue configuration, intégration, consommation et maintenance.",
+    "analytics.consent.title": "Votre choix compte.",
+    "analytics.consent.description": "Avec votre accord, Google Analytics nous aide à comprendre les visites du site. Il est chargé uniquement si vous acceptez. Vous pouvez changer d’avis en bas de page.",
+    "analytics.consent.privacy": "En savoir plus",
+    "analytics.consent.refuse": "Refuser",
+    "analytics.consent.accept": "Accepter",
+    "analytics.consent.settings": "Gérer les cookies",
+    "analytics.privacy.label": "Mesure d’audience :",
+    "analytics.privacy.data": "après votre accord, Google Analytics 4 reçoit les pages consultées, les événements de navigation et des informations techniques sur le navigateur, l’appareil et la connexion. Le code du site transmet l’adresse de la page sans ses paramètres de requête.",
+    "analytics.privacy.purpose": "Google Analytics 4 nous aide à comprendre la fréquentation et les pages consultées. Ce traitement repose sur votre consentement. La balise est chargée après acceptation ; sans choix ou après refus, elle reste désactivée. Les fonctionnalités Google Signals et de personnalisation publicitaire sont désactivées dans notre intégration. Les données ne sont pas vendues.",
+    "analytics.privacy.provider": "Google reçoit les données de mesure lorsque vous acceptez. Ses conditions décrivent le traitement et les transferts internationaux des données. Consultez sa",
+    "analytics.privacy.google_policy": "politique de confidentialité",
+    "analytics.privacy.retention": "votre acceptation ou votre refus est mémorisé pendant 180 jours. Les cookies Analytics créés par cette intégration ont une durée maximale de 180 jours, sans prolongation à chaque visite. La conservation des données dans les rapports dépend des réglages de la propriété Google Analytics.",
+    "analytics.privacy.storage": "Le stockage local mémorise votre préférence de thème et, pendant 180 jours, votre choix concernant la mesure d’audience. Après acceptation, Google Analytics utilise des cookies commençant par _ga. Vous pouvez retirer votre accord avec « Gérer les cookies » en bas de chaque page ; les cookies Analytics accessibles au site sont alors supprimés et la mesure s’arrête après rechargement de la page."
 }

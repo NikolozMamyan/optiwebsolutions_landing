@@ -1,0 +1,8 @@
+<section class="analytics-consent" data-analytics-target="banner" aria-labelledby="analytics-consent-title" hidden>
+    <p id="analytics-consent-title" class="analytics-consent-title">{{ 'analytics.consent.title'|trans }}</p>
+    <p>{{ 'analytics.consent.description'|trans }} <a href="{{ path('app_privacy_policy') }}">{{ 'analytics.consent.privacy'|trans }}</a></p>
+    <div class="analytics-consent-actions">
+        <button type="button" class="button button-outline" data-action="analytics#refuse">{{ 'analytics.consent.refuse'|trans }}</button>
+        <button type="button" class="button button-outline" data-action="analytics#accept">{{ 'analytics.consent.accept'|trans }}</button>
+    </div>
+</section>

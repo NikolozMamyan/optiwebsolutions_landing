@@ -1186,5 +1186,18 @@
     "blog.agents.faq.2.question": "Can an AI agent send messages by itself?",
     "blog.agents.faq.2.answer": "Only if the system provides a sending function and the corresponding permissions. For a first project, you can keep draft preparation and require human approval before sending.",
     "blog.agents.faq.3.question": "How much does an AI agent cost for a small business?",
-    "blog.agents.faq.3.answer": "Costs vary with the solution, connections, usage volume and support requirements. Define a pilot scope and request an estimate separating configuration, integration, consumption and maintenance."
+    "blog.agents.faq.3.answer": "Costs vary with the solution, connections, usage volume and support requirements. Define a pilot scope and request an estimate separating configuration, integration, consumption and maintenance.",
+    "analytics.consent.title": "Your choice matters.",
+    "analytics.consent.description": "With your permission, Google Analytics helps us understand website visits. It only loads if you accept. You can change your choice in the footer.",
+    "analytics.consent.privacy": "Learn more",
+    "analytics.consent.refuse": "Reject",
+    "analytics.consent.accept": "Accept",
+    "analytics.consent.settings": "Manage cookies",
+    "analytics.privacy.label": "Audience measurement:",
+    "analytics.privacy.data": "after you accept, Google Analytics 4 receives viewed pages, navigation events and technical information about the browser, device and connection. The website code sends page addresses without their query parameters.",
+    "analytics.privacy.purpose": "Google Analytics 4 helps us understand website traffic and page visits. This processing relies on your consent. The tag loads after acceptance; without a choice or after rejection, it remains disabled. Google Signals and advertising personalisation features are disabled in our integration. Data is not sold.",
+    "analytics.privacy.provider": "Google receives measurement data when you accept. Its terms describe data processing and international transfers. Read its",
+    "analytics.privacy.google_policy": "privacy policy",
+    "analytics.privacy.retention": "your acceptance or rejection is remembered for 180 days. Analytics cookies created by this integration have a maximum lifetime of 180 days, without renewal on each visit. Data retention in reports depends on the Google Analytics property settings.",
+    "analytics.privacy.storage": "Local storage remembers your theme preference and, for 180 days, your audience measurement choice. After acceptance, Google Analytics uses cookies starting with _ga. You can withdraw permission using “Manage cookies” in the footer of each page; Analytics cookies accessible to the website are then removed, and measurement stops after the page reloads."
 }

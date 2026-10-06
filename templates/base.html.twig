@@ -4,6 +4,7 @@
 {% set canonical_url = site_origin ~ path(current_route, route_parameters[app.request.locale]|merge({'_locale': app.request.locale})) %}
 {% set social_image = entry is defined ? entry.cover : 'blog/creation-site-web-strasbourg.webp' %}
 {% set social_image_alt = entry is defined ? (entry.key ~ '.image_alt')|trans : 'editorial.default_image_alt'|trans %}
+{% set analytics_enabled = app.environment == 'prod' and (google_analytics_id|default('') matches '/^G-[A-Z0-9]+$/') %}
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
     <head>
@@ -69,8 +70,9 @@
         }|json_encode(15)|raw }}</script>
         {% block structured_data %}{% endblock %}
     </head>
-    <body data-controller="reveal">
+    <body data-controller="reveal{% if analytics_enabled %} analytics{% endif %}"{% if analytics_enabled %} data-analytics-id-value="{{ google_analytics_id }}"{% endif %}>
         <a class="skip-link" href="#contenu">{{ 'Aller au contenu'|trans }}</a>
         {% block body %}{% endblock %}
+        {% if analytics_enabled %}{% include 'partials/_analytics_consent.html.twig' %}{% endif %}
     </body>
 </html>
