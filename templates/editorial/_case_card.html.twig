@@ -1,0 +1,5 @@
+{% import '_ui.html.twig' as ui %}
+<article class="case-card reveal">
+    <a class="case-image-link" href="{{ path('app_case_study', {'slug': case.slugs[app.request.locale]}) }}" style="--case-tint: {{ case.tint }}" tabindex="-1" aria-hidden="true"><img src="{{ asset(case.cover) }}" srcset="{{ asset(case.cover_small) }} 640w, {{ asset(case.cover) }} {{ case.width }}w" sizes="(max-width: 760px) 100vw, 50vw" alt="" width="{{ case.width }}" height="{{ case.height }}" loading="lazy" decoding="async"><span class="case-image-name">{{ case.client }}</span></a>
+    <div class="case-card-copy"><span class="project-category">{{ (case.key ~ '.category')|trans }}</span><h3><a href="{{ path('app_case_study', {'slug': case.slugs[app.request.locale]}) }}">{{ (case.key ~ '.title')|trans }}</a></h3><p>{{ (case.key ~ '.excerpt')|trans }}</p><a class="text-link" href="{{ path('app_case_study', {'slug': case.slugs[app.request.locale]}) }}" aria-label="{{ 'editorial.case_named'|trans({'%client%': case.client}) }}">{{ 'editorial.case_read'|trans }} {{ ui.icon('arrow-up-right') }}</a></div>
+</article>

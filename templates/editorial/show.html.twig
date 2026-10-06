@@ -1,0 +1,72 @@
+{% extends 'layout.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% set index_route = kind == 'article' ? 'app_blog' : 'app_case_studies' %}
+{% set index_label = kind == 'article' ? 'editorial.journal' : 'editorial.cases.label' %}
+{% block title %}{{ (entry.key ~ '.meta_title')|trans }} — {{ site_name }}{% endblock %}
+{% block description %}{{ (entry.key ~ '.meta_description')|trans }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block structured_data %}
+<meta property="article:published_time" content="{{ entry.published }}">
+<meta property="article:modified_time" content="{{ entry.modified }}">
+<meta property="article:section" content="{{ (entry.key ~ '.category')|trans }}">
+<script type="application/ld+json">{{ {
+    '@context': 'https://schema.org', '@graph': [
+        {
+            '@type': kind == 'article' ? 'BlogPosting' : 'Article', '@id': canonical_url ~ '#article',
+            'headline': (entry.key ~ '.title')|trans, 'description': (entry.key ~ '.meta_description')|trans,
+            'image': {'@type': 'ImageObject', 'url': site_origin ~ asset(entry.cover), 'width': entry.width, 'height': entry.height},
+            'datePublished': entry.published, 'dateModified': entry.modified,
+            'author': {'@type': 'Organization', '@id': site_origin ~ '/#organization', 'name': site_name, 'url': site_origin ~ path('app_home') ~ '#agence'},
+            'publisher': {'@id': site_origin ~ '/#organization'}, 'inLanguage': app.request.locale,
+            'mainEntityOfPage': {'@id': canonical_url ~ '#webpage'},
+            'articleSection': (entry.key ~ '.category')|trans,
+            'keywords': [(entry.key ~ '.tag1')|trans, (entry.key ~ '.tag2')|trans, (entry.key ~ '.tag3')|trans]
+        },
+        {
+            '@type': 'BreadcrumbList', 'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'editorial.home'|trans, 'item': site_origin ~ path('app_home')},
+                {'@type': 'ListItem', 'position': 2, 'name': index_label|trans, 'item': site_origin ~ path(index_route)},
+                {'@type': 'ListItem', 'position': 3, 'name': (entry.key ~ '.title')|trans, 'item': canonical_url}
+            ]
+        }
+    ]
+}|json_encode(15)|raw }}</script>
+{% endblock %}
+{% block content %}
+<main id="contenu" class="reader-page" data-controller="reading">
+    <header class="container reader-header">
+        <nav class="breadcrumbs" aria-label="{{ 'editorial.breadcrumbs'|trans }}"><ol><li><a href="{{ path('app_home') }}">{{ 'editorial.home'|trans }}</a></li><li><a href="{{ path(index_route) }}">{{ index_label|trans }}</a></li><li aria-current="page">{{ (entry.key ~ '.category')|trans }}</li></ol></nav>
+        <p class="eyebrow reveal">{{ kind == 'article' ? 'editorial.guide'|trans : 'editorial.case_study'|trans }} · {{ (entry.key ~ '.category')|trans }}</p>
+        <h1 class="reveal">{{ (entry.key ~ '.title')|trans }}</h1>
+        <p class="reader-standfirst reveal">{{ (entry.key ~ '.intro')|trans }}</p>
+        <div class="reader-byline reveal"><span class="reader-author-avatar">{% include 'partials/_brand.html.twig' %}</span><div><a href="{{ path('app_home') }}#agence">{{ kind == 'article' ? 'editorial.author'|trans : site_name }}</a><span><time datetime="{{ entry.published }}">{{ ui.date(entry.published) }}</time> · {{ 'editorial.reading_time'|trans({'%minutes%': entry.minutes}) }}</span></div><div class="reader-tags">{% for index in 1..3 %}<span>{{ (entry.key ~ '.tag' ~ index)|trans }}</span>{% endfor %}</div></div>
+    </header>
+    <figure class="container reader-cover{{ kind == 'case' ? ' reader-case-cover' : '' }}">
+        <img src="{{ asset(entry.cover) }}"{% if entry.cover_small is defined %} srcset="{{ asset(entry.cover_small) }} 640w, {{ asset(entry.cover) }} {{ entry.width }}w" sizes="(max-width: 1120px) 100vw, 1120px"{% endif %} alt="{{ (entry.key ~ '.image_alt')|trans }}" width="{{ entry.width }}" height="{{ entry.height }}" fetchpriority="high" decoding="async">
+        <figcaption>{{ (kind == 'article' ? 'editorial.illustration_credit' : (entry.id == 'mykeynest' ? 'editorial.private_screenshot' : 'editorial.project_screenshot'))|trans }}</figcaption>
+    </figure>
+    <div class="container reader-layout">
+        <aside class="reader-sidebar"><nav class="reader-toc" aria-label="{{ 'editorial.toc'|trans }}"><p>{{ 'editorial.toc'|trans }}</p><ol>{% for id, section in entry.sections %}<li><a href="#{{ id }}" data-reading-target="link">{{ (entry.key ~ '.section.' ~ id ~ '.title')|trans }}</a></li>{% endfor %}</ol><div class="reading-progress" aria-hidden="true"><span data-reading-target="progress"></span></div></nav><a class="reader-sidebar-contact text-link" href="{{ path('app_contact') }}">{{ 'editorial.project_talk'|trans }} {{ ui.icon('arrow-up-right') }}</a></aside>
+        <article class="reader-body">
+            <div class="reader-takeaway"><span class="eyebrow">{{ 'editorial.takeaway_label'|trans }}</span><p>{{ (entry.key ~ '.takeaway')|trans }}</p></div>
+            {% for id, section in entry.sections %}
+            <section class="reader-section" id="{{ id }}" data-reading-target="section"><h2>{{ (entry.key ~ '.section.' ~ id ~ '.title')|trans }}</h2>{% for paragraph in 1..section.paragraphs %}<p>{{ (entry.key ~ '.section.' ~ id ~ '.p' ~ paragraph)|trans }}</p>{% endfor %}{% if section.bullets > 0 %}<ul>{% for bullet in 1..section.bullets %}<li>{{ (entry.key ~ '.section.' ~ id ~ '.b' ~ bullet)|trans }}</li>{% endfor %}</ul>{% endif %}</section>
+            {% endfor %}
+            {% if kind == 'case' %}<a class="button button-outline reader-project-link" href="{{ entry.url }}" target="_blank" rel="noopener noreferrer">{{ 'editorial.live_project'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>{% else %}<section class="reader-sources" aria-labelledby="sources-title"><h2 id="sources-title">{{ 'editorial.sources'|trans }}</h2><ul>{% for source in entry.sources %}<li><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.name }} {{ ui.icon('arrow-up-right') }}</a></li>{% endfor %}</ul></section>{% endif %}
+            <div class="reader-next-step"><p>{{ 'editorial.next_step'|trans }}</p><a class="button button-dark" href="{{ path('app_contact') }}">{{ 'editorial.cta.button'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>
+        </article>
+    </div>
+    {% if kind == 'article' %}
+        {% set faqs = [] %}{% for index in 1..entry.faq_count %}{% set faqs = faqs|merge([{'question': (entry.key ~ '.faq.' ~ index ~ '.question')|trans, 'answer': (entry.key ~ '.faq.' ~ index ~ '.answer')|trans}]) %}{% endfor %}
+        {% include 'partials/_faq.html.twig' with {'faq_intro': 'editorial.faq.eyebrow'|trans, 'faq_heading': 'editorial.faq.heading'|trans, 'faq_emphasis': 'editorial.faq.emphasis'|trans, 'faqs': faqs} %}
+        {% if entry.related_article_ids|default([]) is not empty %}
+        <section class="section container reader-related" aria-labelledby="related-guides-title"><div class="editorial-section-heading"><div><p class="eyebrow">{{ 'editorial.guide'|trans }}</p><h2 id="related-guides-title">{{ 'editorial.related_guides'|trans }}</h2></div></div><div class="journal-grid">{% for article in articles|filter(article => article.id in entry.related_article_ids) %}{% include 'editorial/_article_card.html.twig' %}{% endfor %}</div></section>
+        {% endif %}
+        {% if entry.case_ids is not empty %}
+        <section class="section container reader-related" aria-labelledby="related-cases-title"><div class="editorial-section-heading"><div><p class="eyebrow">{{ 'editorial.cases.eyebrow'|trans }}</p><h2 id="related-cases-title">{{ 'editorial.related_cases'|trans }}</h2></div><a class="text-link" href="{{ path('app_case_studies') }}">{{ 'editorial.cases.all'|trans }} {{ ui.icon('arrow-up-right') }}</a></div><div class="case-grid case-grid-pair">{% for case in cases|filter(case => case.id in entry.case_ids) %}{% include 'editorial/_case_card.html.twig' %}{% endfor %}</div></section>
+        {% endif %}
+    {% else %}
+        <section class="section container reader-related" aria-labelledby="related-guide-title"><div class="editorial-section-heading"><div><p class="eyebrow">{{ 'editorial.guide'|trans }}</p><h2 id="related-guide-title">{{ 'editorial.related_guide'|trans }}</h2></div><a class="text-link" href="{{ path('app_blog') }}">{{ 'editorial.articles'|trans }} {{ ui.icon('arrow-up-right') }}</a></div>{% for article in articles|filter(article => article.id == entry.article_id) %}{% include 'editorial/_article_card.html.twig' %}{% endfor %}</section>
+    {% endif %}
+</main>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% import '_ui.html.twig' as ui %}
+<section class="section container case-notebook" id="etudes-de-cas" aria-labelledby="case-section-title">
+    <div class="editorial-section-heading reveal"><div><p class="eyebrow">{{ 'editorial.cases.eyebrow'|trans }}</p><h2 id="case-section-title">{{ 'editorial.cases.heading'|trans }}<br><em>{{ 'editorial.cases.emphasis'|trans }}</em></h2><p>{{ 'editorial.cases.intro'|trans }}</p></div><a class="button button-outline" href="{{ path('app_case_studies') }}">{{ 'editorial.cases.all'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>
+    <div class="case-grid">{% for case in cases|slice(0, 3) %}{% include 'editorial/_case_card.html.twig' %}{% endfor %}</div>
+</section>

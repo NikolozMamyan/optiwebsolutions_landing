@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <symbol id="mark" viewBox="0 0 64 64">
+    <path d="M29 10h-4c-8.3 0-15 6.7-15 15v14c0 8.3 6.7 15 15 15h14c8.3 0 15-6.7 15-15v-4" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+    <path d="M37 10h17v17M53 11 31 33" stroke="#189f92" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <use href="#mark"/>
+</svg>

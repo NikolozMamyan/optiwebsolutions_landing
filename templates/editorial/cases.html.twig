@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% block title %}{{ 'editorial.cases.title'|trans }} — {{ site_name }}{% endblock %}
+{% block description %}{{ 'editorial.cases.description'|trans }}{% endblock %}
+{% block structured_data %}
+{% set items = [] %}
+{% for case in cases %}{% set items = items|merge([{'@type': 'ListItem', 'position': loop.index, 'url': site_origin ~ path('app_case_study', {'slug': case.slugs[app.request.locale]}), 'name': (case.key ~ '.title')|trans}]) %}{% endfor %}
+<script type="application/ld+json">{{ {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'editorial.cases.title'|trans, 'itemListElement': items}|json_encode(15)|raw }}</script>
+{% endblock %}
+{% block content %}
+<main id="contenu" class="journal-page">
+    <section class="container journal-intro" aria-labelledby="case-index-title"><p class="eyebrow reveal">{{ 'editorial.cases.eyebrow'|trans }}</p><h1 id="case-index-title" class="reveal">{{ 'editorial.cases.heading'|trans }}<br><em>{{ 'editorial.cases.emphasis'|trans }}</em></h1><p class="journal-description reveal">{{ 'editorial.cases.intro'|trans }}</p></section>
+    <section class="container case-grid case-grid-index" aria-label="{{ 'editorial.cases.all'|trans }}">{% for case in cases %}{% include 'editorial/_case_card.html.twig' %}{% endfor %}</section>
+    <div class="container editorial-callout reveal"><div><span class="eyebrow">{{ 'editorial.cta.eyebrow'|trans }}</span><p>{{ 'editorial.cta.heading'|trans }}<br><em>{{ 'editorial.cta.emphasis'|trans }}</em></p></div><a class="button button-dark" href="{{ path('app_contact') }}">{{ 'editorial.cta.button'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>
+</main>
+{% endblock %}

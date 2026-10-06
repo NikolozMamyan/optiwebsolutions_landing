@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% block title %}{{ 'editorial.index.title'|trans }} — {{ site_name }}{% endblock %}
+{% block description %}{{ 'editorial.index.description'|trans }}{% endblock %}
+{% block structured_data %}
+{% set items = [] %}
+{% for article in articles %}{% set items = items|merge([{'@type': 'ListItem', 'position': loop.index, 'url': site_origin ~ path('app_blog_article', {'slug': article.slugs[app.request.locale]}), 'name': (article.key ~ '.title')|trans}]) %}{% endfor %}
+<script type="application/ld+json">{{ {'@context': 'https://schema.org', '@type': 'Blog', '@id': canonical_url ~ '#blog', 'name': 'editorial.index.title'|trans, 'url': canonical_url, 'inLanguage': app.request.locale, 'publisher': {'@id': site_origin ~ '/#organization'}, 'mainEntity': {'@type': 'ItemList', 'itemListElement': items}}|json_encode(15)|raw }}</script>
+{% endblock %}
+{% block content %}
+<main id="contenu" class="journal-page">
+    <section class="container journal-intro" aria-labelledby="journal-title"><div class="reveal"><p class="eyebrow"><span class="status-dot"></span>{{ 'editorial.index.eyebrow'|trans }}</p><h1 id="journal-title">{{ 'editorial.index.heading'|trans }}<br><em>{{ 'editorial.index.emphasis'|trans }}</em></h1><p class="journal-description">{{ 'editorial.index.intro'|trans }}</p></div><div class="journal-intro-foot reveal"><p>{{ 'editorial.index.location'|trans }}</p><a class="text-link" href="#etudes-de-cas">{{ 'editorial.cases.jump'|trans }} {{ ui.icon('arrow-down') }}</a></div></section>
+    <section class="container journal-articles" aria-label="{{ 'editorial.articles'|trans }}">
+        {% include 'editorial/_article_card.html.twig' with {'article': articles[0], 'featured': true} %}
+        <div class="journal-grid">{% for article in articles|slice(1) %}{% include 'editorial/_article_card.html.twig' %}{% endfor %}</div>
+    </section>
+    <div class="container editorial-callout reveal"><div><span class="eyebrow">{{ 'editorial.cta.eyebrow'|trans }}</span><p>{{ 'editorial.cta.heading'|trans }}<br><em>{{ 'editorial.cta.emphasis'|trans }}</em></p></div><a class="button button-dark" href="{{ path('app_contact') }}">{{ 'editorial.cta.button'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>
+    {% include 'editorial/_cases_section.html.twig' %}
+</main>
+{% endblock %}

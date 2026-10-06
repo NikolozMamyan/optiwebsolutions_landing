@@ -1,0 +1,13 @@
+{% import '_ui.html.twig' as ui %}
+<article class="journal-card{{ featured|default(false) ? ' journal-featured' : '' }} reveal">
+    <a class="journal-image-link" href="{{ path('app_blog_article', {'slug': article.slugs[app.request.locale]}) }}" tabindex="-1" aria-hidden="true">
+        <img src="{{ asset(article.cover) }}" srcset="{{ asset(article.cover_small) }} 640w, {{ asset(article.cover) }} 1536w" sizes="{{ featured|default(false) ? '(max-width: 760px) calc(100vw - 36px), (max-width: 1184px) 55vw, 620px' : '(max-width: 760px) calc(100vw - 36px), (max-width: 1184px) 50vw, 550px' }}" alt="" width="{{ article.width }}" height="{{ article.height }}" loading="{{ featured|default(false) ? 'eager' : 'lazy' }}"{% if featured|default(false) %} fetchpriority="high"{% endif %} decoding="async">
+        <span class="journal-image-arrow" aria-hidden="true">{{ ui.icon('arrow-up-right') }}</span>
+    </a>
+    <div class="journal-card-copy">
+        <div class="journal-meta"><span>{{ (article.key ~ '.category')|trans }}</span><span>{{ 'editorial.reading_time'|trans({'%minutes%': article.minutes}) }}</span></div>
+        <h2><a href="{{ path('app_blog_article', {'slug': article.slugs[app.request.locale]}) }}">{{ (article.key ~ '.title')|trans }}</a></h2>
+        <p>{{ (article.key ~ '.excerpt')|trans }}</p>
+        <div class="journal-card-bottom"><time datetime="{{ article.published }}">{{ ui.date(article.published) }}</time><a class="text-link" href="{{ path('app_blog_article', {'slug': article.slugs[app.request.locale]}) }}" aria-label="{{ 'editorial.read_named'|trans({'%title%': (article.key ~ '.title')|trans}) }}">{{ 'editorial.read'|trans }} {{ ui.icon('arrow-up-right') }}</a></div>
+    </div>
+</article>

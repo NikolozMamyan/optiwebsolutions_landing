@@ -1,0 +1,90 @@
+{% extends 'legal/base.html.twig' %}
+{% block title %}{{ 'Conditions générales de vente —'|trans }} {{ site_name }}{% endblock %}
+{% block description %}{{ 'Conditions générales OptiWebSolutions pour les professionnels et les particuliers : devis, paiement, livraison, rétractation, garanties et médiation.'|trans }}{% endblock %}
+{% block legal_heading %}{{ 'Un cadre clair.'|trans }}<br><em>{{ 'Pour travailler ensemble.'|trans }}</em>{% endblock %}
+{% block legal_intro %}{{ 'Conditions générales de vente et de prestations de services aux professionnels et aux particuliers.'|trans }}{% endblock %}
+
+{% block legal_document %}
+    <p class="legal-notice"><strong>{{ 'Version de travail.'|trans }}</strong> {{ 'L’adresse professionnelle complète et les coordonnées du médiateur de la consommation restent à renseigner pour finaliser ce document.'|trans }}</p>
+    <section>
+        <h2>{{ '1. Prestataire et champ d’application'|trans }}</h2>
+        <p>{{ legal_business.owner }}, {{ legal_business.status }}{{ ', SIREN'|trans }} {{ legal_business.siren }}{{ ', SIRET'|trans }} {{ legal_business.siret }}{{ ', exerce sous le nom commercial'|trans }} {{ site_name }}{{ '. Son adresse et ses coordonnées figurent dans les'|trans }} <a href="{{ path('app_legal') }}">{{ 'mentions légales'|trans }}</a>.</p>
+        <p>{{ 'Ces conditions concernent les prestations de sites web, applications et SaaS, catalogues digitaux, intégrations et infogérance, commandées par des professionnels ou par des particuliers agissant comme consommateurs. Elles sont communiquées avant l’engagement du client. Les dispositions particulières acceptées dans le devis ou le contrat prévalent en cas de contradiction, sous réserve des règles impératives, notamment de protection des consommateurs.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '2. Devis et commande'|trans }}</h2>
+        <p>{{ 'La proposition précise les objectifs, le périmètre, les livrables, le prix, les étapes et les conditions de règlement. Sa durée de validité est indiquée dans le devis. La commande est formée par son acceptation écrite, accompagnée des présentes conditions.'|trans }}</p>
+        <p>{{ 'Un rendez-vous ou une demande d’information ne vaut pas commande. Le démarrage dépend des conditions convenues, notamment de la remise des éléments nécessaires et du versement d’un acompte lorsqu’il est prévu.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '3. Prix et périmètre'|trans }}</h2>
+        <p>{{ 'Les prix sont exprimés en euros. Pour un particulier, le prix total toutes taxes comprises est communiqué avant son engagement. Pour un professionnel, le devis distingue le montant hors taxes, la TVA applicable et le total à régler. Les éventuelles remises, réductions ou conditions d’escompte sont précisées dans les documents contractuels.'|trans }}</p>
+        <p>{{ 'Les frais récurrents de services tiers, licences, hébergement ou noms de domaine sont inclus uniquement lorsqu’ils sont mentionnés dans le devis. Toute évolution du périmètre fait l’objet d’un accord écrit sur son coût et ses conséquences sur le calendrier.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '4. Règlement et retard de paiement'|trans }}</h2>
+        <p>{{ 'Les moyens de paiement, acomptes et échéances sont définis dans le devis et rappelés sur les factures. Un acompte s’applique lorsqu’il est prévu dans l’accord accepté. Pour un client professionnel, à défaut de délai particulier convenu, le délai légal est de trente jours à compter de l’exécution de la prestation.'|trans }}</p>
+        <p><strong>{{ 'Clients professionnels :'|trans }}</strong> {{ 'un retard donne lieu, sans rappel préalable, à des pénalités à compter du lendemain de l’échéance. Sauf taux contractuel conforme à la loi, le taux applicable est celui de l’opération de refinancement la plus récente de la Banque centrale européenne, majoré de dix points, conformément à l’article L.441-10 du Code de commerce.'|trans }}</p>
+        <p>{{ 'Pour ces clients professionnels, l’indemnité forfaitaire de recouvrement est de 40 € par facture en retard, dans les conditions légales. Une indemnisation complémentaire peut être demandée sur justificatifs lorsque les frais réellement engagés dépassent ce montant. Cette indemnité ne s’applique pas aux consommateurs.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '5. Collaboration et calendrier'|trans }}</h2>
+        <p>{{ 'Le client désigne un interlocuteur et fournit les contenus, accès, validations et informations nécessaires. Il vérifie qu’il dispose des droits et autorisations sur les éléments transmis.'|trans }}</p>
+        <p>{{ site_name }} {{ 'réalise les prestations convenues avec diligence et informe le client des difficultés identifiées. Le calendrier est établi pour le périmètre accepté. Un changement demandé, une validation tardive ou une dépendance externe peut nécessiter une révision discutée entre les parties.'|trans }}</p>
+        <p>{{ 'Pour un consommateur, la date ou le délai d’exécution est communiqué avant la commande. En l’absence de date ou de délai convenu, la prestation est exécutée au plus tard trente jours après la conclusion du contrat. Les recours légaux en cas de retard restent applicables.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '6. Livraison et validation'|trans }}</h2>
+        <p>{{ 'Les livrables et les modalités de vérification sont définis dans le devis ou le contrat. Le client vérifie leur conformité au périmètre convenu et communique ses réserves par écrit, avec les informations permettant de reproduire une anomalie.'|trans }}</p>
+        <p>{{ 'Les écarts au périmètre accepté et les nouvelles fonctionnalités sont traités séparément. La validation, la mise en production et la remise des accès suivent les étapes prévues entre les parties, sans supprimer les garanties légales du consommateur.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '7. Droits sur les livrables'|trans }}</h2>
+        <p>{{ 'La licence d’utilisation ou la cession de droits fait l’objet de dispositions écrites précisant les droits concernés, les usages autorisés, le territoire et la durée. Le paiement d’une prestation ne remplace pas, à lui seul, une clause de cession.'|trans }}</p>
+        <p>{{ 'Les composants préexistants, bibliothèques et logiciels tiers restent soumis à leurs licences. Les contenus apportés par le client conservent leur régime de propriété. L’utilisation d’un projet, d’un logo ou d’une capture comme référence commerciale suppose l’accord du client et le respect de la confidentialité.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '8. Confidentialité et données personnelles'|trans }}</h2>
+        <p>{{ 'Chaque partie protège les informations confidentielles reçues et les utilise pour les besoins de la prestation. Cette obligation ne concerne pas les informations déjà publiques, obtenues licitement ailleurs ou dont la divulgation est imposée par la loi.'|trans }}</p>
+        <p>{{ 'Lorsque'|trans }} {{ site_name }} {{ 'traite des données personnelles pour le compte du client, les rôles, instructions, mesures de sécurité et modalités de restitution ou de suppression sont précisés dans un accord adapté au traitement. Les données de contact sont décrites dans la'|trans }} <a href="{{ path('app_privacy_policy') }}">{{ 'politique de confidentialité'|trans }}</a>.</p>
+    </section>
+    <section>
+        <h2>{{ '9. Maintenance et services tiers'|trans }}</h2>
+        <p>{{ 'La maintenance, les mises à jour, les sauvegardes, le support et les évolutions sont inclus uniquement dans le périmètre convenu. Le contrat correspondant précise leur durée, les interventions et les éventuels engagements de service.'|trans }}</p>
+        <p>{{ 'Les outils tiers sont soumis aux conditions de leurs éditeurs. Une modification de leur API, de leurs tarifs ou de leur disponibilité peut nécessiter une adaptation, dont les modalités sont discutées avec le client.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '10. Responsabilité et difficultés d’exécution'|trans }}</h2>
+        <p>{{ 'Chaque partie répond des manquements qui lui sont imputables selon le contrat et les règles applicables. Toute difficulté est signalée à l’autre partie afin de rechercher une solution et de limiter ses conséquences.'|trans }}</p>
+        <p>{{ 'Les effets d’un événement de force majeure sont appréciés conformément au droit applicable. Les modalités de suspension ou de résiliation et le règlement des prestations réalisées sont fixés dans le contrat, sans supprimer les recours prévus par la loi.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '11. Droit de rétractation'|trans }}</h2>
+        <p>{{ 'Pour une prestation de services conclue à distance ou hors établissement, le consommateur dispose en principe de quatorze jours à compter de la conclusion du contrat pour se rétracter, sans avoir à justifier sa décision. Il peut utiliser le modèle ci-dessous ou envoyer une déclaration claire à'|trans }} <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> {{ 'avant l’expiration du délai.'|trans }}</p>
+        <p>{{ 'Si le consommateur souhaite un démarrage avant la fin de ce délai, sa demande expresse est recueillie selon les modalités légales. En cas de rétractation après ce démarrage, le montant dû correspond au travail effectivement fourni, proportionnellement au prix total, lorsque les conditions d’information et de demande expresse sont remplies.'|trans }}</p>
+        <p>{{ 'Pour un service entièrement exécuté avant la fin du délai, la perte du droit de rétractation suppose un accord préalable exprès et la reconnaissance de cette perte une fois le service pleinement exécuté. La seule nature sur mesure d’une prestation de services ne supprime pas ce droit.'|trans }}</p>
+        <p>{{ 'Les sommes remboursables sont restituées au plus tard quatorze jours après réception de la décision, par le moyen de paiement initial sauf accord exprès sur un autre moyen sans frais. Certains contrats hors établissement conclus avec des professionnels de cinq salariés au plus peuvent également bénéficier de ce droit lorsque leur objet n’entre pas dans leur activité principale.'|trans }}</p>
+        <div class="legal-withdrawal">
+            <h3>{{ 'Modèle de rétractation'|trans }}</h3>
+            <p>{{ 'À l’attention de'|trans }} {{ legal_business.owner }} — {{ site_name }}, {{ legal_business.address }}{{ ', e-mail :'|trans }} <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p>
+            <p>{{ 'Je vous notifie par la présente ma rétractation du contrat portant sur la prestation suivante : [prestation et référence du devis].'|trans }}</p>
+            <ul><li>{{ 'Contrat conclu le : [date]'|trans }}</li><li>{{ 'Nom du client : [nom et prénom]'|trans }}</li><li>{{ 'Adresse du client : [adresse]'|trans }}</li><li>{{ 'Date de la notification : [date]'|trans }}</li><li>{{ 'Signature du client, uniquement pour une notification sur papier.'|trans }}</li></ul>
+        </div>
+    </section>
+    <section>
+        <h2>{{ '12. Garanties des consommateurs'|trans }}</h2>
+        <p>{{ 'Les garanties légales applicables restent acquises au consommateur. Lorsque la prestation comprend un contenu ou un service numérique relevant des articles L.224-25-12 et suivants du Code de la consommation, la garantie légale de conformité s’applique : pour une fourniture ponctuelle, le professionnel répond des défauts apparaissant dans les deux ans suivant la fourniture ; pour une fourniture continue, pendant la période prévue au contrat.'|trans }}</p>
+        <p>{{ 'Le consommateur peut demander une mise en conformité sans frais, sans retard injustifié et sans inconvénient majeur. Une réduction du prix ou la résolution du contrat peut être obtenue dans les cas prévus par la loi. Les mises à jour nécessaires au maintien de la conformité sont fournies selon les obligations applicables.'|trans }}</p>
+        <p>{{ 'La demande est adressée à'|trans }} {{ legal_business.owner }}{{ ', à'|trans }} <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> {{ 'ou au'|trans }} <a href="tel:{{ contact_phone }}">{{ contact_phone_display }}</a>{{ '. Les informations spécifiques aux garanties sont remises avant la commande selon la nature du livrable.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '13. Réclamations et médiation'|trans }}</h2>
+        <p>{{ 'Pour toute réclamation, adressez un écrit à'|trans }} <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>{{ ', en indiquant la prestation concernée et la difficulté rencontrée, afin de rechercher une solution amiable.'|trans }}</p>
+        <p>{{ 'Après une réclamation écrite préalable et dans les conditions légales, le consommateur peut recourir gratuitement au médiateur de la consommation dont relève le prestataire.'|trans }}</p>
+        <p class="legal-notice"><strong>{{ 'Médiateur de la consommation :'|trans }}</strong> {{ 'nom, adresse et site internet à renseigner avant publication définitive. Aucun organisme n’est présenté comme désigné tant que ces informations ne sont pas confirmées.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '14. Droit applicable et juridictions'|trans }}</h2>
+        <p>{{ 'Le droit français s’applique, sous réserve des dispositions impératives, notamment celles protégeant les consommateurs. Le litige relève des juridictions compétentes selon les règles de procédure applicables ; aucune juridiction exclusive n’est imposée au consommateur.'|trans }}</p>
+    </section>
+{% endblock %}

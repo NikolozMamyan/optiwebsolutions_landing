@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 72" role="img" aria-labelledby="title">
+  <title id="title">OptiWebSolutions</title>
+  <g transform="translate(0 4)" fill="none">
+    <path d="M29 10h-4c-8.3 0-15 6.7-15 15v14c0 8.3 6.7 15 15 15h14c8.3 0 15-6.7 15-15v-4" stroke="#1d2223" stroke-width="9" stroke-linecap="round"/>
+    <path d="M37 10h17v17M53 11 31 33" stroke="#189f92" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="78" y="47" fill="#1d2223" font-family="'Inter Tight', Arial, sans-serif" font-size="29" font-weight="600" letter-spacing="-1.2">OptiWeb<tspan fill="#697571" font-weight="400">Solutions</tspan></text>
+</svg>

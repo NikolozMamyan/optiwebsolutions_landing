@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% block title %}{{ 'Contact & rendez-vous découverte —'|trans }} {{ site_name }}{% endblock %}
+{% block description %}{{ 'Parlons de votre site web, application ou catalogue digital. Réservez un rendez-vous de 15 minutes avec OptiWebSolutions sur Cal.com ou contactez Nikoloz directement.'|trans }}{% endblock %}
+
+{% block content %}
+    <main id="contenu" class="contact-page">
+        <section class="section container contact-section" id="contact" aria-labelledby="contact-title">
+            <div class="section-heading reveal"><p class="eyebrow">{{ 'Tout commence par une conversation'|trans }}</p><h1 id="contact-title">{{ 'Un premier échange.'|trans }}<br><em>{{ 'Un projet qui prend forme.'|trans }}</em></h1><p>{{ 'Parlons de votre idée et voyons ensemble comment la concrétiser.'|trans }}</p></div>
+            <div class="contact-grid">
+                <div class="booking-card reveal">
+                    {% if calcom_event %}
+                        <div id="cal-booking" class="cal-booking" data-controller="booking" data-booking-link-value="{{ calcom_event }}" data-booking-locale-value="{{ app.request.locale }}" data-booking-unavailable-value="{{ 'Le calendrier est momentanément indisponible. Ouvrez-le sur Cal.com avec le lien ci-dessous, ou contactez-nous directement.'|trans }}" aria-label="{{ 'Calendrier de réservation d’un rendez-vous avec OptiWebSolutions'|trans }}"></div>
+                        <a class="booking-external text-link" href="https://cal.com/{{ calcom_event }}" target="_blank" rel="noopener noreferrer">{{ 'Ouvrir le calendrier sur Cal.com'|trans }} {{ ui.icon('arrow-up-right') }}</a>
+                    {% else %}
+                        <div class="booking-placeholder">
+                            <span class="booking-icon">{{ ui.icon('calendar') }}</span>
+                            <p class="eyebrow">{{ 'Appel découverte'|trans }}</p>
+                            <h3>{{ 'Prenons le temps'|trans }}<br><em>{{ 'de parler de votre projet.'|trans }}</em></h3>
+                            <p>{{ 'Votre idée, vos priorités et les prochaines étapes. Un échange simple pour faire connaissance et avancer ensemble.'|trans }}</p>
+                            <span class="booking-notice">{{ 'Les créneaux en ligne seront bientôt disponibles.'|trans }}</span>
+                            <a class="button button-dark" href="mailto:{{ contact_email }}?subject={{ 'Un rendez-vous pour discuter de mon projet'|trans|url_encode }}">{{ 'Convenir d’un rendez-vous'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
+                        </div>
+                    {% endif %}
+                </div>
+                <aside class="contact-direct-card reveal" aria-labelledby="direct-contact-title">
+                    <span class="contact-availability"><span class="status-dot"></span> {{ 'Échange direct'|trans }}</span>
+                    <div class="contact-person"><span class="contact-avatar"><img src="{{ asset('nikoloz-avatar.jpg') }}" alt="{{ 'Portrait de Nikoloz'|trans }}" width="384" height="384" loading="lazy"><span class="avatar-whatsapp">{{ ui.icon('whatsapp') }}</span></span><div><strong>Nikoloz</strong><span>{{ site_name }}</span></div></div>
+                    <h3 id="direct-contact-title">{{ 'Envie d’en parler'|trans }}<br><em>{{ 'dès maintenant ?'|trans }}</em></h3>
+                    <p>{{ 'Écrivez-moi directement sur WhatsApp. Je vous réponds personnellement, sans intermédiaire ni formulaire à remplir.'|trans }}</p>
+                    <a class="contact-email" href="mailto:{{ contact_email }}">{{ ui.icon('mail') }} {{ 'Vous préférez l’e-mail ?'|trans }}</a>
+                    <a class="button button-whatsapp" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ ui.icon('whatsapp') }} {{ 'Écrire sur WhatsApp'|trans }}</a>
+                    <a class="contact-phone" href="tel:{{ contact_phone }}">{{ ui.icon('phone') }} {{ contact_phone_display }}</a>
+                </aside>
+            </div>
+        </section>
+        {% include 'partials/_faq.html.twig' with {
+            faq_intro: 'Préparer notre premier échange'|trans,
+            faq_heading: 'Votre projet commence ici.'|trans,
+            faq_emphasis: 'Les réponses à vos questions.'|trans,
+            faqs: [
+                { question: 'Comment prendre rendez-vous avec OptiWebSolutions ?'|trans, answer: 'Choisissez une date et un créneau dans le calendrier Cal.com de cette page, puis suivez les étapes de réservation. Le lien sous le calendrier permet aussi de réserver directement sur Cal.com. Vous pouvez également nous joindre par WhatsApp, par téléphone ou par e-mail.'|trans },
+                { question: 'Combien de temps dure le rendez-vous découverte ?'|trans, answer: 'Le créneau découverte proposé dans le calendrier dure 15 minutes. Nous échangeons sur votre entreprise, votre besoin et les premières pistes pour votre projet de site web, de logiciel ou d’infogérance.'|trans },
+                { question: 'Que préparer avant de discuter de mon projet web ?'|trans, answer: 'Quelques informations suffisent : votre activité, votre objectif principal, les fonctionnalités souhaitées et, si vous les avez, votre budget et votre calendrier. Un lien vers votre site actuel ou des exemples de designs que vous aimez nous aideront à comprendre votre besoin.'|trans },
+                { question: 'Comment obtenir un devis pour un site ou une application sur mesure ?'|trans, answer: 'Le premier échange nous permet de préciser votre besoin. Selon la complexité du projet, nous approfondissons ensuite le périmètre, les contenus et les intégrations. Vous recevez une proposition adaptée avec le budget, les étapes et les livrables avant le démarrage.'|trans },
+                { question: 'Puis-je vous contacter pour un catalogue digital ou une boutique en ligne ?'|trans, answer: 'Oui. Nous pouvons étudier un catalogue interactif, un site e-commerce, une plateforme e-learning ou une application métier. Présentez-nous vos produits, vos utilisateurs et vos outils actuels pour définir ensemble la solution adaptée.'|trans },
+                { question: 'Travaillez-vous à distance avec les entreprises ?'|trans, answer: 'Oui, nous pouvons échanger à distance et suivre votre projet avec des points réguliers. Le rendez-vous en ligne permet de faire connaissance et de discuter de votre besoin, où que soit votre équipe.'|trans }
+            ]
+        } %}
+    </main>
+{% endblock %}

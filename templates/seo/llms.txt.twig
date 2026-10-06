@@ -1,0 +1,33 @@
+{% autoescape false %}
+# OptiWebSolutions
+
+> Digital development by Nikoloz Mamyan in Strasbourg, France. Company websites, custom Symfony web applications, SaaS, online shops, e-learning platforms, interactive catalogues and IT maintenance. Content is available in French and English.
+
+## Company and contact
+
+- [French home]({{ site_url|trim('/') }}{{ path('app_home', {'_locale': 'fr'}) }}): Services, approach and project portfolio.
+- [English home]({{ site_url|trim('/') }}{{ path('app_home', {'_locale': 'en'}) }}): Services and portfolio in English.
+- [Contact]({{ site_url|trim('/') }}{{ path('app_contact', {'_locale': 'fr'}) }}): Discovery appointment and direct contact with Nikoloz.
+- [Email](mailto:{{ contact_email }}): Direct project enquiries.
+- [Telephone](tel:{{ contact_phone }}): {{ contact_phone }}
+
+## Guides
+
+{% for article in articles %}
+- [{{ (article.key ~ '.title')|trans({}, 'messages', 'fr') }}]({{ site_url|trim('/') }}{{ path('app_blog_markdown', {'_locale': 'fr', 'slug': article.slugs.fr}) }}): French guide, clean Markdown.
+- [{{ (article.key ~ '.title')|trans({}, 'messages', 'en') }}]({{ site_url|trim('/') }}{{ path('app_blog_markdown', {'_locale': 'en', 'slug': article.slugs.en}) }}): English guide, clean Markdown.
+{% endfor %}
+
+## Case studies
+
+{% for case in cases %}
+- [{{ case.client }}]({{ site_url|trim('/') }}{{ path('app_case_markdown', {'_locale': 'fr', 'slug': case.slugs.fr}) }}): {{ (case.key ~ '.excerpt')|trans({}, 'messages', 'fr') }}
+- [{{ case.client }} — English]({{ site_url|trim('/') }}{{ path('app_case_markdown', {'_locale': 'en', 'slug': case.slugs.en}) }}): {{ (case.key ~ '.excerpt')|trans({}, 'messages', 'en') }}
+{% endfor %}
+
+## Optional
+
+- [Sitemap]({{ site_url|trim('/') }}{{ path('app_sitemap') }}): Canonical public pages in French and English.
+- [Legal notice]({{ site_url|trim('/') }}{{ path('app_legal', {'_locale': 'fr'}) }}): Publisher and hosting information.
+- [Privacy]({{ site_url|trim('/') }}{{ path('app_privacy_policy', {'_locale': 'fr'}) }}): Personal data and external services.
+{% endautoescape %}

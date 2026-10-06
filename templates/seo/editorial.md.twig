@@ -1,0 +1,48 @@
+{% autoescape false %}
+{% import '_ui.html.twig' as ui %}
+# {{ (entry.key ~ '.title')|trans }}
+
+{{ (entry.key ~ '.intro')|trans }}
+
+{{ 'editorial.author'|trans }} · {{ ui.date(entry.published) }}
+
+Canonical: {{ site_url|trim('/') }}{{ path(kind == 'article' ? 'app_blog_article' : 'app_case_study', {'slug': entry.slugs[app.request.locale]}) }}
+
+## {{ 'editorial.takeaway_label'|trans }}
+
+{{ (entry.key ~ '.takeaway')|trans }}
+
+{% for id, section in entry.sections %}
+## {{ (entry.key ~ '.section.' ~ id ~ '.title')|trans }}
+
+{% for paragraph in 1..section.paragraphs %}
+{{ (entry.key ~ '.section.' ~ id ~ '.p' ~ paragraph)|trans }}
+
+{% endfor %}
+{% if section.bullets > 0 %}
+{% for bullet in 1..section.bullets %}
+- {{ (entry.key ~ '.section.' ~ id ~ '.b' ~ bullet)|trans }}
+{% endfor %}
+
+{% endif %}
+{% endfor %}
+{% if kind == 'article' %}
+## {{ 'FAQ'|trans }}
+
+{% for index in 1..entry.faq_count %}
+### {{ (entry.key ~ '.faq.' ~ index ~ '.question')|trans }}
+
+{{ (entry.key ~ '.faq.' ~ index ~ '.answer')|trans }}
+
+{% endfor %}
+## {{ 'editorial.sources'|trans }}
+
+{% for source in entry.sources %}
+- [{{ source.name }}]({{ source.url }})
+{% endfor %}
+{% else %}
+[{{ 'editorial.live_project'|trans }}]({{ entry.url }})
+{% endif %}
+
+[{{ 'editorial.cta.button'|trans }}]({{ site_url|trim('/') }}{{ path('app_contact') }})
+{% endautoescape %}

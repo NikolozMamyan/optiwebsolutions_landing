@@ -1,0 +1,55 @@
+{% extends 'legal/base.html.twig' %}
+{% block title %}{{ 'Mentions légales —'|trans }} {{ site_name }}{% endblock %}
+{% block description %}{{ 'Identité de l’éditeur OptiWebSolutions, coordonnées de Nikoloz Mamyan, informations d’hébergement o2switch et mentions légales du site.'|trans }}{% endblock %}
+{% block legal_heading %}{{ 'Mentions'|trans }} <em>{{ 'légales.'|trans }}</em>{% endblock %}
+{% block legal_intro %}{{ 'Les informations qui permettent de nous identifier et de nous contacter.'|trans }}{% endblock %}
+
+{% block legal_document %}
+    <section>
+        <h2>{{ '1. Éditeur du site'|trans }}</h2>
+        <p>{{ 'Ce site présente les prestations de'|trans }} {{ site_name }} {{ 'en création de sites web, développement d’applications sur mesure, catalogues digitaux et infogérance. Il est édité par :'|trans }}</p>
+        <dl class="legal-details">
+            <dt>{{ 'Nom commercial'|trans }}</dt><dd>{{ site_name }}</dd>
+            <dt>{{ 'Entrepreneur'|trans }}</dt><dd>{{ legal_business.owner }} — {{ legal_business.status }}</dd>
+            <dt>{{ 'Localisation'|trans }}</dt><dd>{{ legal_business.address }}</dd>
+            <dt>{{ 'SIREN'|trans }}</dt><dd>{{ legal_business.siren }}</dd>
+            <dt>{{ 'SIRET'|trans }}</dt><dd>{{ legal_business.siret }}</dd>
+            <dt>{{ 'TVA intracommunautaire'|trans }}</dt><dd>{{ legal_business.vat }}</dd>
+            <dt>{{ 'Code APE / activité'|trans }}</dt><dd>{{ legal_business.activity }}</dd>
+            <dt>{{ 'E-mail'|trans }}</dt><dd><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></dd>
+            <dt>{{ 'Téléphone'|trans }}</dt><dd><a href="tel:{{ contact_phone }}">{{ contact_phone_display }}</a></dd>
+        </dl>
+    </section>
+    <section>
+        <h2>{{ '2. Direction de la publication'|trans }}</h2>
+        <p>{{ 'Le directeur de la publication est'|trans }} {{ legal_business.owner }}{{ '. Toute demande concernant un contenu ou le fonctionnement du site peut être adressée à'|trans }} <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p>
+    </section>
+    <section>
+        <h2>{{ '3. Hébergement'|trans }}</h2>
+        <p>{{ 'L’hébergement du site est assuré par o2switch.'|trans }}</p>
+        <dl class="legal-details">
+            <dt>{{ 'Hébergeur'|trans }}</dt><dd>o2switch — SAS</dd>
+            <dt>{{ 'Adresse'|trans }}</dt><dd>{{ 'Chemin des Pardiaux, 63000 Clermont-Ferrand, France'|trans }}</dd>
+            <dt>{{ 'Téléphone'|trans }}</dt><dd><a href="tel:+33444446040">04 44 44 60 40</a></dd>
+            <dt>{{ 'Site internet'|trans }}</dt><dd><a href="https://www.o2switch.fr/" target="_blank" rel="noopener noreferrer">www.o2switch.fr</a></dd>
+        </dl>
+    </section>
+    <section>
+        <h2>{{ '4. Contenus et propriété intellectuelle'|trans }}</h2>
+        <p>{{ 'Les créations, textes, éléments graphiques et logiciels présentés sur ce site sont protégés lorsqu’ils remplissent les conditions prévues par le droit de la propriété intellectuelle. Leur réutilisation nécessite l’autorisation du titulaire des droits, sauf exception légale.'|trans }}</p>
+        <p>{{ 'Les marques, logos et captures des projets présentés restent soumis aux droits de leurs propriétaires respectifs. Leur présence dans le portfolio ne transfère aucun droit au visiteur.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '5. Accès au site et liens externes'|trans }}</h2>
+        <p>{{ 'Les informations du site décrivent nos activités et peuvent évoluer. Les exemples de projets ne constituent pas une offre contractuelle : les prestations, le prix et les engagements sont définis dans la proposition acceptée par le client.'|trans }}</p>
+        <p>{{ 'Une interruption peut survenir pour maintenance ou en raison d’un incident technique. Les liens externes, notamment vers les réalisations, Cal.com et WhatsApp, conduisent à des services gérés par leurs propres éditeurs.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '6. Données personnelles'|trans }}</h2>
+        <p>{{ 'La'|trans }} <a href="{{ path('app_privacy_policy') }}">{{ 'politique de confidentialité'|trans }}</a> {{ 'explique les traitements liés à la visite du site et aux prises de contact, les services utilisés et les modalités d’exercice de vos droits.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '7. Cadre applicable'|trans }}</h2>
+        <p>{{ 'Le site et ses mentions légales relèvent du droit français, sous réserve des dispositions impératives applicables. Les prestations destinées aux professionnels et aux particuliers sont décrites dans nos'|trans }} <a href="{{ path('app_terms_and_conditions') }}">{{ 'conditions générales'|trans }}</a>.</p>
+    </section>
+{% endblock %}

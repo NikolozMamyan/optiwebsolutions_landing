@@ -1,0 +1,14 @@
+twig:
+    file_name_pattern: '*.twig'
+    globals:
+        site_name: '%env(SITE_NAME)%'
+        site_url: '%env(DEFAULT_URI)%'
+        contact_email: '%env(CONTACT_EMAIL)%'
+        contact_phone: '%env(CONTACT_PHONE)%'
+        contact_phone_display: '%env(CONTACT_PHONE_DISPLAY)%'
+        whatsapp_number: '%env(WHATSAPP_NUMBER)%'
+        calcom_event: '%env(CALCOM_EVENT)%'
+
+when@test:
+    twig:
+        strict_variables: true

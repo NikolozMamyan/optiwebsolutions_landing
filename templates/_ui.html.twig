@@ -1,0 +1,5 @@
+{% macro icon(name, class = '') %}
+    <svg class="icon {{ class }}" aria-hidden="true" focusable="false"><use href="{{ asset('icons/ui.svg') }}#{{ name }}"></use></svg>
+{% endmacro %}
+
+{% macro date(value) %}{{ 'editorial.date_format'|trans({'%day%': value|date('j'), '%month%': ('editorial.month.' ~ value|date('n'))|trans, '%year%': value|date('Y')}) }}{% endmacro %}

@@ -1,0 +1,71 @@
+{% extends 'legal/base.html.twig' %}
+{% block title %}{{ 'Politique de confidentialité —'|trans }} {{ site_name }}{% endblock %}
+{% block description %}{{ 'Découvrez comment OptiWebSolutions traite les données de contact, les réservations Cal.com et la préférence de thème, et comment exercer vos droits.'|trans }}{% endblock %}
+{% block legal_heading %}{{ 'Votre vie privée.'|trans }}<br><em>{{ 'En toute transparence.'|trans }}</em>{% endblock %}
+{% block legal_intro %}{{ 'Politique de confidentialité : vos données, leurs usages et vos droits.'|trans }}{% endblock %}
+
+{% block legal_document %}
+    <section>
+        <h2>{{ '1. Responsable du traitement'|trans }}</h2>
+        <p>{{ legal_business.owner }}, {{ legal_business.status }}{{ ', exerçant sous le nom commercial'|trans }} {{ site_name }}{{ ', est responsable des traitements réalisés pour la gestion de ce site et des demandes qui lui sont adressées. Ses coordonnées figurent dans les'|trans }} <a href="{{ path('app_legal') }}">{{ 'mentions légales'|trans }}</a>.</p>
+        <p>{{ 'Pour toute question sur vos données :'|trans }} <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p>
+    </section>
+    <section>
+        <h2>{{ '2. Données concernées'|trans }}</h2>
+        <ul>
+            <li><strong>{{ 'Prise de contact :'|trans }}</strong> {{ 'nom, coordonnées professionnelles, adresse e-mail, numéro de téléphone et informations sur votre projet que vous communiquez par e-mail, téléphone ou WhatsApp.'|trans }}</li>
+            <li><strong>{{ 'Rendez-vous :'|trans }}</strong> {{ 'nom, e-mail, créneau choisi et réponses aux champs demandés dans le calendrier Cal.com.'|trans }}</li>
+            <li><strong>{{ 'Fonctionnement technique :'|trans }}</strong> {{ 'l’adresse IP et les informations nécessaires à l’acheminement des requêtes sont transmises à l’hébergeur. Des journaux techniques peuvent être produits pour la sécurité et le diagnostic des incidents.'|trans }}</li>
+            <li><strong>{{ 'Préférence d’affichage :'|trans }}</strong> {{ 'votre choix de thème clair ou sombre est conservé dans le stockage local de votre navigateur.'|trans }}</li>
+        </ul>
+        <p>{{ 'Le site vitrine ne propose pas de compte utilisateur, de paiement en ligne ni de formulaire de contact interne. Les informations demandées par Cal.com pour réserver sont indiquées dans son interface. Vous pouvez choisir un autre moyen de contact.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '3. Finalités et bases légales'|trans }}</h2>
+        <ul>
+            <li><strong>{{ 'Répondre à une demande de projet et organiser un rendez-vous :'|trans }}</strong> {{ 'mesures précontractuelles prises à votre demande. Pour un échange général, le traitement repose sur notre intérêt légitime à répondre aux personnes qui nous contactent.'|trans }}</li>
+            <li><strong>{{ 'Réaliser et suivre une prestation :'|trans }}</strong> {{ 'exécution du contrat. Lorsque vous êtes le contact d’une entreprise cliente, notre intérêt légitime à gérer cette relation professionnelle peut également s’appliquer.'|trans }}</li>
+            <li><strong>{{ 'Facturer et conserver les justificatifs obligatoires :'|trans }}</strong> {{ 'respect des obligations légales.'|trans }}</li>
+            <li><strong>{{ 'Assurer la disponibilité et la sécurité du site :'|trans }}</strong> {{ 'intérêt légitime à maintenir un service fiable et à prévenir les incidents.'|trans }}</li>
+        </ul>
+        <p>{{ 'Les données ne sont pas vendues. Le site n’intègre actuellement aucun outil de mesure d’audience, de publicité ciblée ou de rejeu de sessions.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '4. Destinataires et services externes'|trans }}</h2>
+        <p>{{ 'Les demandes sont traitées par'|trans }} {{ legal_business.owner }}{{ '. Les prestataires techniques ne reçoivent que les informations nécessaires au service utilisé :'|trans }}</p>
+        <ul>
+            <li><strong>{{ 'o2switch :'|trans }}</strong> {{ 'hébergement du site et fonctionnement de l’infrastructure.'|trans }}</li>
+            <li><strong>{{ 'Cal.com :'|trans }}</strong> {{ 'affichage du calendrier et gestion des réservations. Lorsque le calendrier se charge sur la page contact, votre navigateur communique avec ce service, notamment pour lui transmettre les informations techniques de connexion.'|trans }}</li>
+            <li><strong>{{ 'WhatsApp :'|trans }}</strong> {{ 'lorsque vous choisissez ce canal, vos échanges passent par ce service, selon les règles applicables à votre compte.'|trans }}</li>
+            <li><strong>{{ 'Services de messagerie :'|trans }}</strong> {{ 'acheminement et traitement des e-mails que vous nous adressez.'|trans }}</li>
+        </ul>
+        <p>{{ 'Cal.com indique traiter des données aux États-Unis et recourir, selon les cas, au cadre de protection des données UE–États-Unis ou aux clauses contractuelles types. WhatsApp décrit également des transferts internationaux dans sa politique. Consultez la'|trans }} <a href="https://cal.com/privacy" target="_blank" rel="noopener noreferrer">{{ 'politique de Cal.com'|trans }}</a> {{ 'et celle de'|trans }} <a href="https://www.whatsapp.com/legal/privacy-policy-eea" target="_blank" rel="noopener noreferrer">{{ 'WhatsApp pour l’Espace économique européen'|trans }}</a> {{ 'pour leurs modalités et garanties.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '5. Durées de conservation'|trans }}</h2>
+        <p>{{ 'Les données sont limitées à ce qui est utile pour leur finalité. Les règles retenues pour les données que nous gérons sont les suivantes :'|trans }}</p>
+        <ul>
+            <li><strong>{{ 'Demandes sans contrat :'|trans }}</strong> {{ 'au maximum trois ans après le dernier contact venant de votre part, sauf nécessité de conserver une preuve pour un litige.'|trans }}</li>
+            <li><strong>{{ 'Dossiers contractuels :'|trans }}</strong> {{ 'pendant la prestation, puis en archivage pour les durées nécessaires à la preuve des droits et au respect des obligations applicables. Les contrats et correspondances commerciales sont généralement conservés cinq ans.'|trans }}</li>
+            <li><strong>{{ 'Pièces comptables et factures :'|trans }}</strong> {{ 'dix ans à compter de la clôture de l’exercice concerné.'|trans }}</li>
+            <li><strong>{{ 'Journaux techniques :'|trans }}</strong> {{ 'selon les paramètres de l’hébergement, pour la durée nécessaire au diagnostic, à la sécurité et aux obligations applicables.'|trans }}</li>
+            <li><strong>{{ 'Préférence de thème :'|trans }}</strong> {{ 'jusqu’à sa modification ou à l’effacement du stockage local dans votre navigateur.'|trans }}</li>
+        </ul>
+        <p>{{ 'Les services externes appliquent leurs propres règles aux données qu’ils traitent pour leur fonctionnement. Une suppression auprès de'|trans }} {{ site_name }} {{ 'ne ferme pas votre compte chez ces fournisseurs.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '6. Cookies et stockage local'|trans }}</h2>
+        <p>{{ 'Le site mémorise uniquement sa préférence de thème dans le stockage local, sous la clé'|trans }} <code>{{ 'optiwebsolutions-theme'|trans }}</code>{{ '. Cette préférence d’interface reste sur votre appareil ; elle ne sert pas à suivre vos visites. Vous pouvez l’effacer depuis les paramètres de votre navigateur.'|trans }}</p>
+        <p>{{ 'Les polices et les images du site sont hébergées localement. Le calendrier intégré dépend de Cal.com, qui décrit ses cookies de connexion, de préférence et de sécurité dans sa'|trans }} <a href="https://cal.com/privacy" target="_blank" rel="noopener noreferrer">{{ 'politique de confidentialité'|trans }}</a>{{ '. L’ouverture d’un lien externe vous soumet aux paramètres et aux règles du service visité.'|trans }}</p>
+    </section>
+    <section>
+        <h2>{{ '7. Vos droits'|trans }}</h2>
+        <p>{{ 'Selon le traitement et les conditions prévues par le RGPD, vous pouvez demander l’accès à vos données, leur rectification, leur effacement, la limitation du traitement ou leur portabilité. Vous pouvez vous opposer à un traitement fondé sur l’intérêt légitime, dans les conditions applicables. Lorsqu’un traitement repose sur votre consentement, vous pouvez le retirer.'|trans }}</p>
+        <p>{{ 'Adressez votre demande à'|trans }} <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>{{ '. Une réponse est apportée en principe sous un mois ; ce délai peut être prolongé de deux mois en cas de complexité ou de demandes nombreuses, avec information dans le premier mois. Un justificatif peut être demandé uniquement si un doute raisonnable existe sur votre identité.'|trans }}</p>
+        <p>{{ 'Vous pouvez également déposer une réclamation auprès de la'|trans }} <a href="https://www.cnil.fr/fr/adresser-une-plainte" target="_blank" rel="noopener noreferrer">{{ 'Commission nationale de l’informatique et des libertés (CNIL)'|trans }}</a>.</p>
+    </section>
+    <section>
+        <h2>{{ '8. Évolution de cette politique'|trans }}</h2>
+        <p>{{ 'Cette page est mise à jour lorsque les outils ou les traitements évoluent. La date affichée en haut permet d’identifier sa version. Pour les conditions encadrant une prestation, consultez les'|trans }} <a href="{{ path('app_terms_and_conditions') }}">{{ 'conditions générales'|trans }}</a> {{ 'et le contrat correspondant.'|trans }}</p>
+    </section>
+{% endblock %}

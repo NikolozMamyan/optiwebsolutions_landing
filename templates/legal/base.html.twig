@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% set legal_business = {
+    owner: 'Nikoloz Mamyan',
+    status: 'Entrepreneur individuel (EI)'|trans,
+    siren: '852249408',
+    siret: '85224940800026',
+    vat: 'FR23852249408',
+    activity: '6201Z — Programmation informatique'|trans,
+    address: 'Strasbourg, France'
+} %}
+
+{% block content %}
+    <main id="contenu" class="legal-page">
+        <section class="section container legal-section" aria-labelledby="legal-title">
+            <div class="section-heading">
+                <p class="eyebrow">{{ 'Transparence & confiance'|trans }}</p>
+                <h1 id="legal-title">{% block legal_heading %}{% endblock %}</h1>
+                <p>{% block legal_intro %}{% endblock %}</p>
+            </div>
+            <p class="legal-updated">{{ 'Dernière mise à jour :'|trans }} <time datetime="2026-10-06">{{ '6 octobre 2026'|trans }}</time></p>
+            <nav class="legal-nav" aria-label="{{ 'Documents légaux'|trans }}">
+                <a href="{{ path('app_legal') }}"{% if current_route == 'app_legal' %} aria-current="page"{% endif %}>{{ 'Mentions légales'|trans }}</a>
+                <a href="{{ path('app_privacy_policy') }}"{% if current_route == 'app_privacy_policy' %} aria-current="page"{% endif %}>{{ 'Confidentialité'|trans }}</a>
+                <a href="{{ path('app_terms_and_conditions') }}"{% if current_route == 'app_terms_and_conditions' %} aria-current="page"{% endif %}>{{ 'Conditions générales'|trans }}</a>
+            </nav>
+            <article class="legal-document" aria-labelledby="legal-title">
+                {% block legal_document %}{% endblock %}
+            </article>
+            <div class="legal-contact">
+                <p>{{ 'Une question à propos de ces informations ?'|trans }}</p>
+                <a class="button button-dark" href="{{ path('app_contact') }}">{{ 'Parlons-en'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

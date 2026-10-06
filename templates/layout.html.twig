@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% set current_route = app.request.attributes.get('_canonical_route', app.request.attributes.get('_route')) %}
+{% set home_prefix = current_route == 'app_home' ? '' : path('app_home') %}
+{% set alternate_locale = app.request.locale == 'fr' ? 'en' : 'fr' %}
+{% set whatsapp_url = 'https://wa.me/' ~ whatsapp_number ~ '?text=' ~ ('Bonjour OptiWebSolutions, j’aimerais discuter de mon projet avec vous.'|trans|url_encode) %}
+
+{% block body %}
+    <header class="site-header">
+        <div class="header-inner container" data-controller="navigation theme" data-action="click@window->navigation#closeOutside keydown@window->navigation#escape" data-navigation-open-label-value="{{ 'Ouvrir le menu'|trans }}" data-navigation-close-label-value="{{ 'Fermer le menu'|trans }}" data-theme-light-label-value="{{ 'Activer le thème clair'|trans }}" data-theme-dark-label-value="{{ 'Activer le thème sombre'|trans }}">
+            <a class="brand" href="{{ home_prefix }}#accueil" aria-label="{{ site_name }}{{ ', accueil'|trans }}">
+                {% include 'partials/_brand.html.twig' %}
+            </a>
+            <nav class="main-nav" id="main-nav" aria-label="{{ 'Navigation principale'|trans }}" data-navigation-target="nav" data-action="click->navigation#close">
+                <a href="{{ home_prefix }}#approche">{{ 'Approche'|trans }}</a>
+                <a href="{{ home_prefix }}#expertises">{{ 'Expertises'|trans }}</a>
+                <a href="{{ home_prefix }}#solutions">{{ 'Projets'|trans }}</a>
+                <a href="{{ home_prefix }}#agence">{{ 'L’agence'|trans }}</a>
+                <a href="{{ home_prefix }}#offres">{{ 'Idées'|trans }}</a>
+                <a href="{{ path('app_blog') }}"{% if current_route in ['app_blog', 'app_blog_article', 'app_case_studies', 'app_case_study'] %} aria-current="page"{% endif %}>{{ 'editorial.journal'|trans }}</a>
+                <div class="mobile-nav-footer">
+                    <a class="button mobile-nav-contact" href="{{ path('app_contact') }}"{% if current_route == 'app_contact' %} aria-current="page"{% endif %}><span>{{ 'Nous contacter'|trans }}</span><span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
+                </div>
+            </nav>
+            <div class="header-actions">
+                <a class="button button-dark header-contact"{% if current_route == 'app_contact' %} aria-current="page"{% endif %} href="{{ path('app_contact') }}" data-action="click->navigation#close"><span class="header-contact-label">{{ 'Nous contacter'|trans }}</span><span class="header-contact-mobile">{{ 'Contact'|trans }}</span><span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
+                <a class="language-badge" href="{{ path(current_route, (localized_parameters|default({'fr': {}, 'en': {}}))[alternate_locale]|merge({'_locale': alternate_locale})) }}" hreflang="{{ alternate_locale }}" lang="{{ alternate_locale }}" aria-label="{{ (alternate_locale == 'en' ? 'Afficher le site en anglais' : 'Afficher le site en français')|trans }}"><span class="french-flag{% if alternate_locale == 'en' %} english-flag{% endif %}" aria-hidden="true"></span> {{ alternate_locale|upper }}</a>
+                <button class="icon-button theme-toggle" type="button" aria-label="{{ 'Activer le thème sombre'|trans }}" aria-pressed="false" data-theme-target="toggle" data-action="theme#toggle">
+                    {{ ui.icon('moon', 'theme-moon') }}{{ ui.icon('sun', 'theme-sun') }}
+                </button>
+                <button class="icon-button menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="{{ 'Ouvrir le menu'|trans }}" data-navigation-target="toggle" data-action="navigation#toggle">
+                    {{ ui.icon('menu', 'menu-open-icon') }}{{ ui.icon('close', 'menu-close-icon') }}
+                </button>
+            </div>
+        </div>
+    </header>
+
+
+    {% block content %}{% endblock %}
+
+    <footer class="site-footer container">
+        <div class="footer-main"><div class="footer-brand"><a class="brand" href="{{ home_prefix }}#accueil" aria-label="{{ site_name }}{{ ', retour à l’accueil'|trans }}">{% include 'partials/_brand.html.twig' %}</a><p>{{ 'Le digital qui fait avancer votre entreprise.'|trans }}<br>{{ 'Sites web, SaaS & infogérance.'|trans }}</p><a class="footer-message" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'Contacter OptiWebSolutions sur WhatsApp'|trans }}">{{ ui.icon('whatsapp') }}</a></div><div class="footer-column"><h3>{{ 'Explorer'|trans }}</h3><a href="{{ home_prefix }}#approche">{{ 'Notre approche'|trans }}</a><a href="{{ home_prefix }}#expertises">{{ 'Nos expertises'|trans }}</a><a href="{{ home_prefix }}#solutions">{{ 'Nos réalisations'|trans }}</a><a href="{{ home_prefix }}#agence">{{ 'L’agence'|trans }}</a><a href="{{ home_prefix }}#offres">{{ 'Idées de projets'|trans }}</a><a href="{{ home_prefix }}#faq">{{ 'Vos questions'|trans }}</a><a href="{{ path('app_blog') }}">{{ 'editorial.journal'|trans }}</a><a href="{{ path('app_case_studies') }}">{{ 'editorial.cases.label'|trans }}</a></div><div class="footer-column"><h3>{{ 'Légal'|trans }}</h3><a href="{{ path('app_legal') }}">{{ 'Mentions légales'|trans }}</a><a href="{{ path('app_privacy_policy') }}">{{ 'Confidentialité'|trans }}</a><a href="{{ path('app_terms_and_conditions') }}">{{ 'Conditions générales'|trans }}</a></div><div class="footer-column footer-contact"><h3>{{ 'Restons en contact'|trans }}</h3><a href="mailto:{{ contact_email }}">{{ contact_email }}</a><a href="tel:{{ contact_phone }}">{{ contact_phone_display }}</a><span>{{ 'Un échange direct,'|trans }}<br>{{ 'un projet qui avance.'|trans }}</span></div></div>
+        <div class="footer-bottom"><p>© {{ 'now'|date('Y', 'Europe/Paris') }} {{ site_name }}{{ '. Tous droits réservés.'|trans }}</p><a href="#contenu">{{ 'Retour en haut'|trans }} {{ ui.icon('arrow-up-right') }}</a></div>
+    </footer>
+
+
+    <a class="whatsapp-float" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'Discuter avec OptiWebSolutions sur WhatsApp (nouvel onglet)'|trans }}">{{ ui.icon('whatsapp-filled') }}<span class="whatsapp-tooltip" aria-hidden="true">{{ 'Parlons de votre projet.'|trans }}</span></a>
+{% endblock %}

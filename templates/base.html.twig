@@ -1,0 +1,76 @@
+{% set current_route = app.request.attributes.get('_canonical_route', app.request.attributes.get('_route')) %}
+{% set site_origin = site_url|trim('/') %}
+{% set route_parameters = localized_parameters|default({'fr': {}, 'en': {}}) %}
+{% set canonical_url = site_origin ~ path(current_route, route_parameters[app.request.locale]|merge({'_locale': app.request.locale})) %}
+{% set social_image = entry is defined ? entry.cover : 'blog/creation-site-web-strasbourg.webp' %}
+{% set social_image_alt = entry is defined ? (entry.key ~ '.image_alt')|trans : 'editorial.default_image_alt'|trans %}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+        <title>{% block title %}{{ site_name }} — {{ 'seo.home.title'|trans }}{% endblock %}</title>
+        <meta name="description" content="{% block description %}{{ 'seo.home.description'|trans }}{% endblock %}">
+        <meta name="robots" content="index, follow, max-image-preview:large">
+        <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+        <meta property="og:locale" content="{{ app.request.locale == 'en' ? 'en_GB' : 'fr_FR' }}">
+        <meta property="og:title" content="{{ block('title') }}">
+        <meta property="og:description" content="{{ block('description') }}">
+        <meta property="og:site_name" content="{{ site_name }}">
+        <meta property="og:url" content="{{ canonical_url }}">
+        <meta property="og:image" content="{{ site_origin }}{{ asset(social_image) }}">
+        <meta property="og:image:alt" content="{{ social_image_alt }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ block('title') }}">
+        <meta name="twitter:description" content="{{ block('description') }}">
+        <meta name="twitter:image" content="{{ site_origin }}{{ asset(social_image) }}">
+        <meta name="twitter:image:alt" content="{{ social_image_alt }}">
+        <link rel="canonical" href="{{ canonical_url }}">
+        {% for locale in ['fr', 'en'] %}
+        <link rel="alternate" hreflang="{{ locale }}" href="{{ site_origin }}{{ path(current_route, route_parameters[locale]|merge({'_locale': locale})) }}">
+        {% endfor %}
+        <link rel="alternate" hreflang="x-default" href="{{ site_origin }}{{ path(current_route, route_parameters.fr|merge({'_locale': 'fr'})) }}">
+        <link rel="alternate" type="application/rss+xml" title="{{ site_name }} — {{ 'editorial.journal'|trans }}" href="{{ site_origin }}{{ path('app_blog_feed') }}">
+        <link rel="describedby" type="text/plain" href="{{ site_origin }}{{ path('app_llms') }}">
+        {% if entry is defined %}<link rel="alternate" type="text/markdown" href="{{ site_origin }}{{ path(current_route == 'app_blog_article' ? 'app_blog_markdown' : 'app_case_markdown', {'slug': entry.slugs[app.request.locale]}) }}">{% endif %}
+        <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+        <link rel="preload" href="{{ asset('fonts/inter-tight.woff2') }}" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="{{ asset('fonts/instrument-serif-italic.woff2') }}" as="font" type="font/woff2" crossorigin>
+        <script src="{{ asset('theme.js') }}"></script>
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+        <script type="application/ld+json">{{ {
+            '@context': 'https://schema.org',
+            '@graph': [
+                {
+                    '@type': 'Organization', '@id': site_origin ~ '/#organization',
+                    'name': site_name, 'url': site_origin ~ '/',
+                    'logo': {'@type': 'ImageObject', 'url': site_origin ~ asset('logo.svg')},
+                    'image': site_origin ~ asset('blog/creation-site-web-strasbourg.webp'),
+                    'email': contact_email, 'telephone': contact_phone,
+                    'location': {'@type': 'Place', 'name': 'Strasbourg, France'},
+                    'areaServed': {'@type': 'Country', 'name': 'France'},
+                    'contactPoint': {'@type': 'ContactPoint', 'contactType': 'customer service', 'email': contact_email, 'telephone': contact_phone, 'availableLanguage': ['French', 'English']}
+                },
+                {
+                    '@type': 'WebSite', '@id': site_origin ~ '/#website',
+                    'url': site_origin ~ '/', 'name': site_name,
+                    'publisher': {'@id': site_origin ~ '/#organization'}, 'inLanguage': ['fr', 'en']
+                },
+                {
+                    '@type': current_route == 'app_contact' ? 'ContactPage' : (current_route in ['app_blog', 'app_case_studies'] ? 'CollectionPage' : 'WebPage'),
+                    '@id': canonical_url ~ '#webpage', 'url': canonical_url,
+                    'name': block('title')|striptags|trim, 'description': block('description')|striptags|trim,
+                    'inLanguage': app.request.locale,
+                    'isPartOf': {'@id': site_origin ~ '/#website'},
+                    'about': {'@id': site_origin ~ '/#organization'}
+                }
+            ]
+        }|json_encode(15)|raw }}</script>
+        {% block structured_data %}{% endblock %}
+    </head>
+    <body data-controller="reveal">
+        <a class="skip-link" href="#contenu">{{ 'Aller au contenu'|trans }}</a>
+        {% block body %}{% endblock %}
+    </body>
+</html>
