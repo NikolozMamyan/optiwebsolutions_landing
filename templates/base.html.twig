@@ -35,7 +35,8 @@
         <link rel="alternate" type="application/rss+xml" title="{{ site_name }} — {{ 'editorial.journal'|trans }}" href="{{ site_origin }}{{ path('app_blog_feed') }}">
         <link rel="describedby" type="text/plain" href="{{ site_origin }}{{ path('app_llms') }}">
         {% if entry is defined %}<link rel="alternate" type="text/markdown" href="{{ site_origin }}{{ path(current_route == 'app_blog_article' ? 'app_blog_markdown' : 'app_case_markdown', {'slug': entry.slugs[app.request.locale]}) }}">{% endif %}
-        <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="preload" href="{{ asset('fonts/inter-tight.woff2') }}" as="font" type="font/woff2" crossorigin>
         <link rel="preload" href="{{ asset('fonts/instrument-serif-italic.woff2') }}" as="font" type="font/woff2" crossorigin>
         <script src="{{ asset('theme.js') }}"></script>

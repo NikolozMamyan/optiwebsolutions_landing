@@ -11,7 +11,8 @@
         <meta name="robots" content="noindex, follow">
         <title>{{ 'error.404.title'|trans({}, 'messages', error_locale) }} — {{ site_name }}</title>
         <meta name="description" content="{{ 'error.404.description'|trans({}, 'messages', error_locale) }}">
-        <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <script src="{{ asset('theme.js') }}"></script>
         {{ importmap('app') }}
     </head>
