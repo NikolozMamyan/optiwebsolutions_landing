@@ -15,6 +15,9 @@ Canonical: {{ site_url|trim('/') }}{{ path(kind == 'article' ? 'app_blog_article
 {% for id, section in entry.sections %}
 ## {{ (entry.key ~ '.section.' ~ id ~ '.title')|trans }}
 
+{% if section.blocks is defined %}
+{% include 'seo/_section_blocks.md.twig' %}
+{% else %}
 {% for paragraph in 1..section.paragraphs %}
 {{ (entry.key ~ '.section.' ~ id ~ '.p' ~ paragraph)|trans }}
 
@@ -24,6 +27,7 @@ Canonical: {{ site_url|trim('/') }}{{ path(kind == 'article' ? 'app_blog_article
 - {{ (entry.key ~ '.section.' ~ id ~ '.b' ~ bullet)|trans }}
 {% endfor %}
 
+{% endif %}
 {% endif %}
 {% endfor %}
 {% if kind == 'article' %}

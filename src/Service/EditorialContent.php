@@ -6,6 +6,67 @@ final class EditorialContent
 {
     private const ARTICLES = [
         [
+            'id' => 'wordpress_symfony', 'key' => 'blog.wordpress_symfony',
+            'slugs' => ['fr' => 'wordpress-ou-symfony-quel-choix-projet-web', 'en' => 'wordpress-or-symfony-web-project'],
+            'cover' => 'blog/wordpress-ou-symfony.webp', 'cover_small' => 'blog/wordpress-ou-symfony-640.webp',
+            'width' => 1536, 'height' => 864, 'minutes' => 8,
+            'published' => '2026-10-07', 'modified' => '2026-10-07',
+            'sections' => [
+                'approaches' => ['paragraphs' => 4, 'bullets' => 0],
+                'wordpress' => ['blocks' => [
+                    ['type' => 'paragraph', 'index' => 1],
+                    ['type' => 'list', 'start' => 1, 'end' => 6],
+                    ['type' => 'paragraph', 'index' => 2],
+                    ['type' => 'paragraph', 'index' => 3],
+                    ['type' => 'list', 'start' => 7, 'end' => 12],
+                    ['type' => 'paragraph', 'index' => 4],
+                    ['type' => 'paragraph', 'index' => 5, 'link' => 'lnstrade'],
+                ]],
+                'symfony' => ['blocks' => [
+                    ['type' => 'paragraph', 'index' => 1],
+                    ['type' => 'list', 'start' => 1, 'end' => 8],
+                    ['type' => 'paragraph', 'index' => 2],
+                    ['type' => 'paragraph', 'index' => 3],
+                    ['type' => 'paragraph', 'index' => 4],
+                    ['type' => 'paragraph', 'index' => 5, 'link' => 'consultants'],
+                    ['type' => 'paragraph', 'index' => 6, 'link' => 'application'],
+                ]],
+                'criteria' => ['blocks' => [
+                    ['type' => 'paragraph', 'index' => 1],
+                    ['type' => 'table', 'rows' => 8, 'columns' => 3],
+                    ['type' => 'paragraph', 'index' => 2],
+                    ['type' => 'list', 'start' => 1, 'end' => 8],
+                    ['type' => 'paragraph', 'index' => 3, 'link' => 'budget'],
+                ]],
+                'questions' => ['blocks' => [
+                    ['type' => 'paragraph', 'index' => 1],
+                    ['type' => 'list', 'start' => 1, 'end' => 6, 'ordered' => true],
+                    ['type' => 'paragraph', 'index' => 2],
+                ]],
+                'figures' => ['blocks' => [['type' => 'list', 'start' => 1, 'end' => 2]]],
+                'conclusion' => ['blocks' => [
+                    ['type' => 'paragraph', 'index' => 1],
+                    ['type' => 'paragraph', 'index' => 2, 'link' => 'contact'],
+                ]],
+            ],
+            'links' => [
+                'lnstrade' => ['route' => 'app_case_study', 'slugs' => ['fr' => 'lnstrade-site-corporate', 'en' => 'lnstrade-corporate-website']],
+                'consultants' => ['route' => 'app_case_study', 'slugs' => ['fr' => 'les-consultants-plateforme-elearning', 'en' => 'les-consultants-elearning-platform']],
+                'application' => ['route' => 'app_blog_article', 'slugs' => ['fr' => 'application-metier-sur-mesure-symfony', 'en' => 'custom-business-application-symfony']],
+                'budget' => ['route' => 'app_blog_article', 'slugs' => ['fr' => 'prix-site-vitrine-strasbourg', 'en' => 'business-website-cost-strasbourg']],
+                'contact' => ['route' => 'app_contact'],
+            ],
+            'faq_count' => 3, 'case_ids' => ['consultants', 'lnstrade'],
+            'related_article_ids' => ['application', 'budget', 'website'],
+            'sources' => [
+                ['name' => 'WordPress.org — About WordPress', 'url' => 'https://wordpress.org/about/'],
+                ['name' => 'WordPress — Documentation', 'url' => 'https://wordpress.org/documentation/'],
+                ['name' => 'WordPress — Hardening WordPress', 'url' => 'https://developer.wordpress.org/advanced-administration/security/hardening/'],
+                ['name' => 'Symfony — What is Symfony?', 'url' => 'https://symfony.com/what-is-symfony'],
+                ['name' => 'Symfony — Documentation', 'url' => 'https://symfony.com/doc/current/index.html'],
+            ],
+        ],
+        [
             'id' => 'ai_visibility', 'key' => 'blog.ai_visibility',
             'slugs' => ['fr' => 'referencement-site-moteurs-ia-chatgpt-google', 'en' => 'website-visibility-ai-search'],
             'cover' => 'blog/referencement-moteurs-ia.webp', 'cover_small' => 'blog/referencement-moteurs-ia-640.webp',

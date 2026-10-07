@@ -6,6 +6,12 @@ DirectoryIndex index.php
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^(?:www\.)?optiwebsolutions\.fr(?::[0-9]+)?$ [NC]
+    RewriteCond %{HTTPS} !=on [OR]
+    RewriteCond %{HTTP_HOST} !^optiwebsolutions\.fr$ [NC]
+    RewriteCond %{THE_REQUEST} \s(/[^?\s]*)
+    RewriteRule ^ https://optiwebsolutions.fr%1 [R=301,L,NE]
+
     RewriteCond %{ENV:REDIRECT_STATUS} =""
     RewriteRule ^index\.php(?:/(.*)|$) /$1 [R=308,L]
     RewriteCond %{REQUEST_FILENAME} !-f

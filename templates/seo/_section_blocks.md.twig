@@ -1,0 +1,29 @@
+{% autoescape false %}
+{% set section_key = entry.key ~ '.section.' ~ id %}
+{% for block in section.blocks %}
+{% if block.type == 'paragraph' %}
+{% if block.link is defined %}
+{% set link = entry.links[block.link] %}
+{% set parameters = {'_locale': app.request.locale} %}
+{% if link.slugs is defined %}{% set parameters = parameters|merge({'slug': link.slugs[app.request.locale]}) %}{% endif %}
+{% set markdown_link = '[' ~ (entry.key ~ '.links.' ~ block.link)|trans ~ '](' ~ site_url|trim('/') ~ path(link.route, parameters) ~ ')' %}
+{{ (section_key ~ '.p' ~ block.index)|trans({'%link%': markdown_link}) }}
+{% else %}
+{{ (section_key ~ '.p' ~ block.index)|trans }}
+{% endif %}
+
+{% elseif block.type == 'list' %}
+{% for bullet in block.start..block.end %}
+{{ block.ordered|default(false) ? loop.index ~ '.' : '-' }} {{ (section_key ~ '.b' ~ bullet)|trans }}
+{% endfor %}
+
+{% elseif block.type == 'table' %}
+{% for column in 1..block.columns %}| {{ (section_key ~ '.table.h' ~ column)|trans }} {% endfor %}|
+{% for column in 1..block.columns %}| --- {% endfor %}|
+{% for row in 1..block.rows %}
+{% for column in 1..block.columns %}| {{ (section_key ~ '.table.r' ~ row ~ '.c' ~ column)|trans }} {% endfor %}|
+{% endfor %}
+
+{% endif %}
+{% endfor %}
+{% endautoescape %}

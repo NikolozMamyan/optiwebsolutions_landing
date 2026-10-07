@@ -50,7 +50,15 @@
         <article class="reader-body">
             <div class="reader-takeaway"><span class="eyebrow">{{ 'editorial.takeaway_label'|trans }}</span><p>{{ (entry.key ~ '.takeaway')|trans }}</p></div>
             {% for id, section in entry.sections %}
-            <section class="reader-section" id="{{ id }}" data-reading-target="section"><h2>{{ (entry.key ~ '.section.' ~ id ~ '.title')|trans }}</h2>{% for paragraph in 1..section.paragraphs %}<p>{{ (entry.key ~ '.section.' ~ id ~ '.p' ~ paragraph)|trans }}</p>{% endfor %}{% if section.bullets > 0 %}<ul>{% for bullet in 1..section.bullets %}<li>{{ (entry.key ~ '.section.' ~ id ~ '.b' ~ bullet)|trans }}</li>{% endfor %}</ul>{% endif %}</section>
+            <section class="reader-section" id="{{ id }}" data-reading-target="section">
+                <h2>{{ (entry.key ~ '.section.' ~ id ~ '.title')|trans }}</h2>
+                {% if section.blocks is defined %}
+                    {% include 'editorial/_section_blocks.html.twig' %}
+                {% else %}
+                    {% for paragraph in 1..section.paragraphs %}<p>{{ (entry.key ~ '.section.' ~ id ~ '.p' ~ paragraph)|trans }}</p>{% endfor %}
+                    {% if section.bullets > 0 %}<ul>{% for bullet in 1..section.bullets %}<li>{{ (entry.key ~ '.section.' ~ id ~ '.b' ~ bullet)|trans }}</li>{% endfor %}</ul>{% endif %}
+                {% endif %}
+            </section>
             {% endfor %}
             {% if kind == 'case' %}<a class="button button-outline reader-project-link" href="{{ entry.url }}" target="_blank" rel="noopener noreferrer">{{ 'editorial.live_project'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>{% else %}<section class="reader-sources" aria-labelledby="sources-title"><h2 id="sources-title">{{ 'editorial.sources'|trans }}</h2><ul>{% for source in entry.sources %}<li><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.name }} {{ ui.icon('arrow-up-right') }}</a></li>{% endfor %}</ul></section>{% endif %}
             <div class="reader-next-step"><p>{{ 'editorial.next_step'|trans }}</p><a class="button button-dark" href="{{ path('app_contact') }}">{{ 'editorial.cta.button'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>

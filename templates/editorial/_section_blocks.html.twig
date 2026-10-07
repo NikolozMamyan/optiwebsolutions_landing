@@ -1,0 +1,30 @@
+{% set section_key = entry.key ~ '.section.' ~ id %}
+{% for block in section.blocks %}
+    {% if block.type == 'paragraph' %}
+        {% if block.link is defined %}
+            {% set link = entry.links[block.link] %}
+            {% set parameters = {'_locale': app.request.locale} %}
+            {% if link.slugs is defined %}{% set parameters = parameters|merge({'slug': link.slugs[app.request.locale]}) %}{% endif %}
+            {% set parts = (section_key ~ '.p' ~ block.index)|trans|split('%link%') %}
+            <p>{{ parts[0] }}<a href="{{ path(link.route, parameters) }}">{{ (entry.key ~ '.links.' ~ block.link)|trans }}</a>{{ parts[1] }}</p>
+        {% else %}
+            <p>{{ (section_key ~ '.p' ~ block.index)|trans }}</p>
+        {% endif %}
+    {% elseif block.type == 'list' %}
+        {% if block.ordered|default(false) %}<ol>{% else %}<ul>{% endif %}
+        {% for bullet in block.start..block.end %}<li>{{ (section_key ~ '.b' ~ bullet)|trans }}</li>{% endfor %}
+        {% if block.ordered|default(false) %}</ol>{% else %}</ul>{% endif %}
+    {% elseif block.type == 'table' %}
+        <div class="reader-table-scroll" role="region" aria-label="{{ (section_key ~ '.table.caption')|trans }}" tabindex="0">
+            <table class="reader-table">
+                <caption>{{ (section_key ~ '.table.caption')|trans }}</caption>
+                <thead><tr>{% for column in 1..block.columns %}<th scope="col">{{ (section_key ~ '.table.h' ~ column)|trans }}</th>{% endfor %}</tr></thead>
+                <tbody>
+                {% for row in 1..block.rows %}
+                    <tr>{% for column in 1..block.columns %}{% if column == 1 %}<th scope="row">{{ (section_key ~ '.table.r' ~ row ~ '.c' ~ column)|trans }}</th>{% else %}<td>{{ (section_key ~ '.table.r' ~ row ~ '.c' ~ column)|trans }}</td>{% endif %}{% endfor %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endfor %}

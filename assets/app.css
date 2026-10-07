@@ -295,6 +295,14 @@ ul { list-style: none; margin: 0; padding: 0; }
 .faq-contact a { display: inline-flex; align-items: center; gap: 3px; color: var(--text); border-bottom: 1px solid var(--border); margin-left: 5px; }
 .faq-contact .icon { width: 13px; height: 13px; }
 .contact-page .contact-section { margin-top: 80px; }
+.error-page { display: grid; place-items: center; min-height: calc(100svh - 105px); padding-block: 48px; }
+.error-card { width: min(780px, 100%); padding: clamp(28px, 5vw, 64px); text-align: center; border: 1px solid var(--border); border-radius: 28px; background: var(--header-bg); box-shadow: var(--shadow); }
+.error-code { color: var(--accent); font-size: clamp(76px, 15vw, 128px); font-weight: 500; letter-spacing: -.06em; line-height: 1; margin-bottom: 24px; }
+.error-card h1 { font-size: clamp(30px, 4.5vw, 48px); letter-spacing: -1.3px; margin-top: 14px; }
+.error-description { max-width: 500px; color: var(--muted); margin: 22px auto 0; }
+.error-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 30px; }
+.error-actions .button { min-height: 54px; }
+.error-projects { margin-top: 24px; }
 .contact-section { width: min(1280px, calc(100% - 64px)); }
 .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: stretch; }
 .booking-card, .contact-direct-card { min-width: 0; border: 1px solid var(--border); border-radius: 23px; background: var(--background); box-shadow: 0 15px 60px #8b735508; }

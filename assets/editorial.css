@@ -71,6 +71,7 @@
 .reader-cover figcaption { margin-top: 13px; font-size: 13px; color: var(--muted); }
 .reader-case-cover > img { height: auto; max-height: none; object-fit: contain; border: 1px solid var(--border); }
 .reader-layout { display: grid; grid-template-columns: 240px minmax(0, 740px); justify-content: space-between; gap: 65px; align-items: start; }
+.reader-body { min-width: 0; }
 .reader-sidebar { position: sticky; top: 120px; }
 .reader-toc { padding: 24px; border: 1px solid var(--border); border-radius: 20px; background: var(--surface); }
 .reader-toc > p { font-size: 16px; font-weight: 600; }
@@ -86,8 +87,19 @@
 .reader-section { scroll-margin-top: 30px; margin-bottom: 46px; }
 .reader-section h2 { font-size: 31px; letter-spacing: -.8px; line-height: 1.25; }
 .reader-section p { color: var(--muted); font-size: 19px; line-height: 1.9; margin-top: 22px; }
-.reader-section ul { display: grid; gap: 13px; margin-top: 24px; padding-left: 21px; list-style: disc; color: var(--muted); font-size: 18px; line-height: 1.8; }
+.reader-section ul, .reader-section ol { display: grid; gap: 13px; margin-top: 24px; padding-left: 21px; color: var(--muted); font-size: 18px; line-height: 1.8; }
+.reader-section ul { list-style: disc; }
+.reader-section ol { list-style: decimal; }
 .reader-section li::marker { color: var(--accent); }
+.reader-section p a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.reader-section p a:hover { color: var(--text); }
+.reader-table-scroll { overflow-x: auto; margin-top: 26px; border: 1px solid var(--border); border-radius: 18px; }
+.reader-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 16px; line-height: 1.65; }
+.reader-table caption { padding: 20px; text-align: left; color: var(--text); font-weight: 600; background: var(--surface); }
+.reader-table th, .reader-table td { padding: 18px; text-align: left; vertical-align: top; border-top: 1px solid var(--border); }
+.reader-table th { color: var(--text); font-weight: 600; }
+.reader-table td { color: var(--muted); }
+.reader-table thead { background: var(--surface); }
 .reader-sources { margin-top: 35px; padding-top: 30px; border-top: 1px solid var(--border); }
 .reader-sources h2 { font-size: 24px; }
 .reader-sources ul { display: grid; gap: 12px; margin-top: 18px; }
@@ -156,7 +168,7 @@
     .reader-takeaway > p { font-size: 18px; }
     .reader-section h2 { font-size: 28px; }
     .reader-section p { font-size: 18px; line-height: 1.85; }
-    .reader-section ul { font-size: 17px; }
+    .reader-section ul, .reader-section ol { font-size: 17px; }
     .reader-next-step { padding: 25px; }
     .reader-next-step > p { font-size: 18px; }
     .reader-next-step .button { font-size: 15px; padding-left: 18px; gap: 10px; }

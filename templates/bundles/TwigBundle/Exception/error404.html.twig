@@ -1,0 +1,43 @@
+{% import '_ui.html.twig' as ui %}
+{% set error_locale = (app.request.pathInfo == '/en' or app.request.pathInfo starts with '/en/') ? 'en' : 'fr' %}
+{% set home_url = path('app_home', {'_locale': error_locale}) %}
+{% set contact_url = path('app_contact', {'_locale': error_locale}) %}
+<!DOCTYPE html>
+<html lang="{{ error_locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="robots" content="noindex, follow">
+        <title>{{ 'error.404.title'|trans({}, 'messages', error_locale) }} — {{ site_name }}</title>
+        <meta name="description" content="{{ 'error.404.description'|trans({}, 'messages', error_locale) }}">
+        <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+        <script src="{{ asset('theme.js') }}"></script>
+        {{ importmap('app') }}
+    </head>
+    <body>
+        <a class="skip-link" href="#contenu">{{ 'Aller au contenu'|trans({}, 'messages', error_locale) }}</a>
+        <header class="site-header">
+            <div class="header-inner container" data-controller="theme" data-theme-light-label-value="{{ 'Activer le thème clair'|trans({}, 'messages', error_locale) }}" data-theme-dark-label-value="{{ 'Activer le thème sombre'|trans({}, 'messages', error_locale) }}">
+                <a class="brand" href="{{ home_url }}" aria-label="{{ site_name }}{{ ', accueil'|trans({}, 'messages', error_locale) }}">{% include 'partials/_brand.html.twig' %}</a>
+                <div class="header-actions">
+                    <a class="button button-dark header-contact" href="{{ contact_url }}"><span class="header-contact-label">{{ 'Nous contacter'|trans({}, 'messages', error_locale) }}</span><span class="header-contact-mobile">{{ 'Contact'|trans({}, 'messages', error_locale) }}</span><span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
+                    <button class="icon-button theme-toggle" type="button" aria-label="{{ 'Activer le thème sombre'|trans({}, 'messages', error_locale) }}" aria-pressed="false" data-theme-target="toggle" data-action="theme#toggle">{{ ui.icon('moon', 'theme-moon') }}{{ ui.icon('sun', 'theme-sun') }}</button>
+                </div>
+            </div>
+        </header>
+        <main id="contenu" class="error-page container">
+            <div class="error-card">
+                <p class="error-code" aria-hidden="true">404</p>
+                <p class="eyebrow">{{ 'error.404.eyebrow'|trans({}, 'messages', error_locale) }}</p>
+                <h1>{{ 'error.404.heading'|trans({}, 'messages', error_locale) }}<br><em>{{ 'error.404.emphasis'|trans({}, 'messages', error_locale) }}</em></h1>
+                <p class="error-description">{{ 'error.404.description'|trans({}, 'messages', error_locale) }}</p>
+                <div class="error-actions">
+                    <a class="button button-dark" href="{{ home_url }}">{{ 'error.404.home'|trans({}, 'messages', error_locale) }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
+                    <a class="button button-outline" href="{{ contact_url }}">{{ 'Nous contacter'|trans({}, 'messages', error_locale) }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
+                </div>
+                <a class="text-link error-projects" href="{{ home_url }}#solutions">{{ 'error.404.projects'|trans({}, 'messages', error_locale) }} {{ ui.icon('arrow-up-right') }}</a>
+            </div>
+        </main>
+    </body>
+</html>
