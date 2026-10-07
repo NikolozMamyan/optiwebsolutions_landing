@@ -4,6 +4,8 @@
 .journal-description { max-width: 650px; margin-top: 28px; color: var(--muted); font-size: 21px; line-height: 1.7; }
 .journal-intro-foot { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin: 42px 0 32px; padding-block: 20px; border-top: 1px solid var(--border); font-size: 16px; }
 .journal-intro-foot > p { color: var(--muted); }
+.journal-directory-link { margin-top: 32px; padding-bottom: 20px; text-align: right; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.journal-directory-link a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 .journal-card { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 28px; background: var(--surface); transition: box-shadow .35s, border-color .35s; }
 .journal-card:hover { box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--accent) 25%, var(--border)); }
 .journal-image-link { position: relative; display: block; overflow: hidden; aspect-ratio: 3 / 2; background: #e6eee9; }

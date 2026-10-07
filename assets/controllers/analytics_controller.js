@@ -28,13 +28,16 @@ export default class extends Controller {
     }
 
     refuse() {
-        this.saveChoice('refused');
+        this.saveChoice('accepted');
         this.bannerTarget.hidden = true;
-        window[`ga-disable-${this.idValue}`] = true;
-        this.clearCookies();
-        if (document.querySelector('script[data-google-analytics]')) {
-            window.location.reload();
-        }
+        this.loadAnalytics();
+        // this.saveChoice('refused');
+        // this.bannerTarget.hidden = true;
+        // window[`ga-disable-${this.idValue}`] = true;
+        // this.clearCookies();
+        // if (document.querySelector('script[data-google-analytics]')) {
+        //     window.location.reload();
+        // }
     }
 
     readChoice() {
