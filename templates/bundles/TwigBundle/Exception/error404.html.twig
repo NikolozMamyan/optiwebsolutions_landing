@@ -13,8 +13,8 @@
         <meta name="description" content="{{ 'error.404.description'|trans({}, 'messages', error_locale) }}">
         <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-        <script src="{{ asset('theme.js') }}"></script>
-        {{ importmap('app') }}
+        <script src="{{ asset('theme.js') }}" nonce="{{ app.request.attributes.get('csp_nonce') }}"></script>
+        {{ importmap('app', {'nonce': app.request.attributes.get('csp_nonce')}) }}
     </head>
     <body>
         <a class="skip-link" href="#contenu">{{ 'Aller au contenu'|trans({}, 'messages', error_locale) }}</a>

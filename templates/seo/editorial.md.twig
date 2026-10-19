@@ -1,52 +1,52 @@
 {% autoescape false %}
-{% import '_ui.html.twig' as ui %}
-# {{ (entry.key ~ '.title')|trans }}
+{% set document_locale = document_locale|default(app.request.locale) %}
+# {{ (entry.key ~ '.title')|trans({}, 'messages', document_locale) }}
 
-{{ (entry.key ~ '.intro')|trans }}
+{{ (entry.key ~ '.intro')|trans({}, 'messages', document_locale) }}
 
-{{ 'editorial.author'|trans }} · {{ ui.date(entry.published) }}
+[Nikoloz Mamyan]({{ site_url|trim('/') }}{{ path('app_author', {'_locale': document_locale}) }}) · {{ entry.published }}{% if entry.modified != entry.published %} · Updated: {{ entry.modified }}{% endif %}
 
-Canonical: {{ site_url|trim('/') }}{{ path(kind == 'article' ? 'app_blog_article' : 'app_case_study', {'slug': entry.slugs[app.request.locale]}) }}
+Canonical: {{ site_url|trim('/') }}{{ path(kind == 'article' ? 'app_blog_article' : 'app_case_study', {'_locale': document_locale, 'slug': entry.slugs[document_locale]}) }}
 
-## {{ 'editorial.takeaway_label'|trans }}
+## {{ 'editorial.takeaway_label'|trans({}, 'messages', document_locale) }}
 
-{{ (entry.key ~ '.takeaway')|trans }}
+{{ (entry.key ~ '.takeaway')|trans({}, 'messages', document_locale) }}
 
 {% for id, section in entry.sections %}
-## {{ (entry.key ~ '.section.' ~ id ~ '.title')|trans }}
+## {{ (entry.key ~ '.section.' ~ id ~ '.title')|trans({}, 'messages', document_locale) }}
 
 {% if section.blocks is defined %}
 {% include 'seo/_section_blocks.md.twig' %}
 {% else %}
 {% for paragraph in 1..section.paragraphs %}
-{{ (entry.key ~ '.section.' ~ id ~ '.p' ~ paragraph)|trans }}
+{% include 'seo/_paragraph.md.twig' with {'paragraph_key': entry.key ~ '.section.' ~ id ~ '.p' ~ paragraph, 'link_id': section.links[paragraph]|default(null)} %}
 
 {% endfor %}
 {% if section.bullets > 0 %}
 {% for bullet in 1..section.bullets %}
-- {{ (entry.key ~ '.section.' ~ id ~ '.b' ~ bullet)|trans }}
+- {{ (entry.key ~ '.section.' ~ id ~ '.b' ~ bullet)|trans({}, 'messages', document_locale) }}
 {% endfor %}
 
 {% endif %}
 {% endif %}
 {% endfor %}
 {% if kind == 'article' %}
-## {{ 'FAQ'|trans }}
+## {{ 'FAQ'|trans({}, 'messages', document_locale) }}
 
 {% for index in 1..entry.faq_count %}
-### {{ (entry.key ~ '.faq.' ~ index ~ '.question')|trans }}
+### {{ (entry.key ~ '.faq.' ~ index ~ '.question')|trans({}, 'messages', document_locale) }}
 
-{{ (entry.key ~ '.faq.' ~ index ~ '.answer')|trans }}
+{{ (entry.key ~ '.faq.' ~ index ~ '.answer')|trans({}, 'messages', document_locale) }}
 
 {% endfor %}
-## {{ 'editorial.sources'|trans }}
+## {{ 'editorial.sources'|trans({}, 'messages', document_locale) }}
 
 {% for source in entry.sources %}
 - [{{ source.name }}]({{ source.url }})
 {% endfor %}
 {% else %}
-[{{ 'editorial.live_project'|trans }}]({{ entry.url }})
+[{{ 'editorial.live_project'|trans({}, 'messages', document_locale) }}]({{ entry.url }})
 {% endif %}
 
-[{{ 'editorial.cta.button'|trans }}]({{ site_url|trim('/') }}{{ path('app_contact') }})
+[{{ 'editorial.cta.button'|trans({}, 'messages', document_locale) }}]({{ site_url|trim('/') }}{{ path('app_contact', {'_locale': document_locale}) }})
 {% endautoescape %}

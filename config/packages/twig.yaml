@@ -9,6 +9,8 @@ twig:
         whatsapp_number: '%env(WHATSAPP_NUMBER)%'
         calcom_event: '%env(CALCOM_EVENT)%'
         google_analytics_id: '%env(default::GOOGLE_ANALYTICS_ID)%'
+        service_catalog: '@App\Service\ServiceContent'
+        author_linkedin_url: 'https://www.linkedin.com/in/nikoloz-mamyan-063688271/'
 
 when@test:
     twig:

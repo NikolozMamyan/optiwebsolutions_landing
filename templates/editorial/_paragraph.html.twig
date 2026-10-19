@@ -1,0 +1,9 @@
+{% set paragraph_link = link_id ? entry.links[link_id] : null %}
+{% if paragraph_link %}
+    {% set parameters = {'_locale': app.request.locale} %}
+    {% if paragraph_link.slugs is defined %}{% set parameters = parameters|merge({'slug': paragraph_link.slugs[app.request.locale]}) %}{% endif %}
+    {% set parts = paragraph_key|trans|split('%link%') %}
+    <p>{{ parts[0] }}<a href="{{ path(paragraph_link.route, parameters) }}">{{ (entry.key ~ '.links.' ~ link_id)|trans }}</a>{{ parts[1] }}</p>
+{% else %}
+    <p>{{ paragraph_key|trans }}</p>
+{% endif %}

@@ -1,0 +1,53 @@
+{% autoescape false %}
+# {{ site_name }} — full public content
+
+Publisher: Nikoloz Mamyan, Strasbourg, Alsace, France.
+Contact: {{ contact_email }} | {{ contact_phone }}
+Author: {{ site_url|trim('/') }}{{ path('app_author', {'_locale': 'fr'}) }}
+Professional profile: {{ author_linkedin_url }}
+The HTML pages are canonical. This file is a convenience copy, not a guarantee of search indexing or AI citation.
+
+{% for document_locale in ['fr', 'en'] %}
+## {{ document_locale|upper }} — services
+
+{% for service in service_catalog.all %}
+# {{ (service.key ~ '.title')|trans({}, 'messages', document_locale) }}
+
+Canonical: {{ site_url|trim('/') }}{{ path('app_service', {'_locale': document_locale, 'slug': service.slugs[document_locale]}) }}
+
+{{ (service.key ~ '.intro')|trans({}, 'messages', document_locale) }}
+
+{{ (service.key ~ '.takeaway')|trans({}, 'messages', document_locale) }}
+
+{% for index in 1..4 %}
+- {{ (service.key ~ '.deliverable.' ~ index)|trans({}, 'messages', document_locale) }}
+{% endfor %}
+
+{% for id in ['need', 'delivery', 'scope'] %}
+## {{ (service.key ~ '.section.' ~ id ~ '.title')|trans({}, 'messages', document_locale) }}
+
+{% for index in 1..2 %}
+{{ (service.key ~ '.section.' ~ id ~ '.p' ~ index)|trans({}, 'messages', document_locale) }}
+
+{% endfor %}
+{% endfor %}
+{% for index in 1..3 %}
+### {{ (service.key ~ '.faq.' ~ index ~ '.question')|trans({}, 'messages', document_locale) }}
+
+{{ (service.key ~ '.faq.' ~ index ~ '.answer')|trans({}, 'messages', document_locale) }}
+
+{% endfor %}
+{% endfor %}
+
+{% for kind, entries in {'article': articles, 'case': cases} %}
+## {{ document_locale|upper }} — {{ kind == 'article' ? 'guides' : 'case studies' }}
+
+{% for entry in entries %}
+{% include 'seo/editorial.md.twig' %}
+
+---
+
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endautoescape %}

@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% block title %}{{ 'author.meta_title'|trans }} — {{ site_name }}{% endblock %}
+{% block description %}{{ 'author.meta_description'|trans }}{% endblock %}
+{% block content %}
+<main id="contenu" class="reader-page author-page">
+    <header class="container reader-header author-header">
+        <img class="author-portrait" src="{{ asset('nikoloz-avatar.jpg') }}" alt="{{ 'author.image_alt'|trans }}" width="384" height="384">
+        <div><p class="eyebrow">{{ 'author.eyebrow'|trans }}</p><h1>Nikoloz Mamyan</h1><p class="reader-standfirst">{{ 'author.intro'|trans }}</p><div class="service-actions"><a class="button button-dark" href="{{ path('app_contact') }}">{{ 'author.cta'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a><a class="text-link" href="{{ author_linkedin_url }}" target="_blank" rel="noopener noreferrer">LinkedIn {{ ui.icon('arrow-up-right') }}</a></div></div>
+    </header>
+    <div class="container reader-layout">
+        <aside class="reader-sidebar"><nav class="reader-toc" aria-label="{{ 'Nos domaines d’intervention'|trans }}"><p>{{ 'Nos expertises'|trans }}</p><ol>{% for item in service_catalog.all %}<li><a href="{{ path('app_service', {'slug': item.slugs[app.request.locale]}) }}">{{ (item.key ~ '.nav')|trans }}</a></li>{% endfor %}</ol></nav></aside>
+        <div class="reader-body"><section class="reader-section"><h2>{{ 'author.experience_title'|trans }}</h2><p>{{ 'author.experience_p1'|trans }}</p><p>{{ 'author.experience_p2'|trans }}</p></section><section class="reader-section"><h2>{{ 'author.editorial_title'|trans }}</h2><p>{{ 'author.editorial_p1'|trans }}</p><p>{{ 'author.editorial_p2'|trans }} <a href="mailto:{{ contact_email }}">{{ 'author.correction'|trans }}</a>.</p></section></div>
+    </div>
+    <section class="section container reader-related" aria-labelledby="author-projects-title"><div class="editorial-section-heading"><h2 id="author-projects-title">{{ 'author.projects'|trans }}</h2></div><div class="case-grid">{% for case in cases|slice(0, 3) %}{% include 'editorial/_case_card.html.twig' %}{% endfor %}</div></section>
+    <section class="section container reader-related" aria-labelledby="author-guides-title"><div class="editorial-section-heading"><h2 id="author-guides-title">{{ 'author.guides'|trans }}</h2><a class="text-link" href="{{ path('app_blog') }}">{{ 'editorial.articles'|trans }} {{ ui.icon('arrow-up-right') }}</a></div><div class="journal-grid">{% for article in articles|slice(0, 4) %}{% include 'editorial/_article_card.html.twig' with {'heading_level': 3} %}{% endfor %}</div></section>
+</main>
+{% endblock %}

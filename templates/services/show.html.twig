@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% block title %}{{ (service.key ~ '.meta_title')|trans }} — {{ site_name }}{% endblock %}
+{% block description %}{{ (service.key ~ '.meta_description')|trans }}{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">{{ {
+    '@context': 'https://schema.org', '@graph': [
+        {
+            '@type': 'Service', '@id': canonical_url ~ '#service', 'url': canonical_url,
+            'name': (service.key ~ '.title')|trans, 'description': (service.key ~ '.intro')|trans,
+            'serviceType': (service.key ~ '.nav')|trans,
+            'provider': {'@id': site_origin ~ '/#organization'},
+            'areaServed': [{'@type': 'City', 'name': 'Strasbourg'}, {'@type': 'Country', 'name': 'France'}],
+            'mainEntityOfPage': {'@id': canonical_url ~ '#webpage'}
+        },
+        {
+            '@type': 'BreadcrumbList', 'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'editorial.home'|trans, 'item': site_origin ~ path('app_home')},
+                {'@type': 'ListItem', 'position': 2, 'name': (service.key ~ '.nav')|trans, 'item': canonical_url}
+            ]
+        }
+    ]
+}|json_encode(15)|raw }}</script>
+{% endblock %}
+{% block content %}
+<main id="contenu" class="reader-page service-page">
+    <header class="container reader-header">
+        <nav class="breadcrumbs" aria-label="{{ 'editorial.breadcrumbs'|trans }}"><ol><li><a href="{{ path('app_home') }}">{{ 'editorial.home'|trans }}</a></li><li aria-current="page">{{ (service.key ~ '.nav')|trans }}</li></ol></nav>
+        <p class="eyebrow">{{ 'services.eyebrow'|trans }}</p>
+        <h1>{{ (service.key ~ '.title')|trans }}</h1>
+        <p class="reader-standfirst">{{ (service.key ~ '.intro')|trans }}</p>
+        <div class="service-actions"><a class="button button-dark" href="{{ path('app_contact') }}">{{ (service.key ~ '.cta')|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a><a class="text-link" href="{{ path('app_author') }}">{{ 'services.contact_person'|trans }} {{ ui.icon('arrow-up-right') }}</a></div>
+    </header>
+    <div class="container service-overview">
+        <div class="reader-takeaway"><span class="eyebrow">{{ 'services.deliverables'|trans }}</span><p>{{ (service.key ~ '.takeaway')|trans }}</p><ul class="check-list">{% for index in 1..4 %}<li>{{ (service.key ~ '.deliverable.' ~ index)|trans }}</li>{% endfor %}</ul></div>
+        <figure class="service-preview"><img src="{{ asset(service.cover) }}" srcset="{{ asset(service.cover|replace({'.webp': '-640.webp'})) }} 640w, {{ asset(service.cover) }} {{ service.width }}w" sizes="(max-width: 760px) 100vw, 50vw" alt="{{ (service.key ~ '.image_alt')|trans }}" width="{{ service.width }}" height="{{ service.height }}" fetchpriority="high" decoding="async"><figcaption>{{ (service.key ~ '.caption')|trans }}</figcaption></figure>
+    </div>
+    <div class="container reader-layout">
+        <aside class="reader-sidebar"><nav class="reader-toc" aria-label="{{ 'editorial.toc'|trans }}"><p>{{ 'editorial.toc'|trans }}</p><ol>{% for id in ['need', 'delivery', 'scope'] %}<li><a href="#{{ id }}">{{ (service.key ~ '.section.' ~ id ~ '.title')|trans }}</a></li>{% endfor %}</ol></nav></aside>
+        <div class="reader-body">
+            {% for id in ['need', 'delivery', 'scope'] %}
+            <section class="reader-section" id="{{ id }}"><h2>{{ (service.key ~ '.section.' ~ id ~ '.title')|trans }}</h2>{% for index in 1..2 %}<p>{{ (service.key ~ '.section.' ~ id ~ '.p' ~ index)|trans }}</p>{% endfor %}</section>
+            {% endfor %}
+            <div class="reader-next-step"><p>{{ 'services.prepare'|trans }}</p><a class="button button-dark" href="{{ path('app_contact') }}">{{ (service.key ~ '.cta')|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>
+        </div>
+    </div>
+    {% if service.case_ids is not empty %}
+    <section class="section container reader-related" aria-labelledby="service-cases-title"><div class="editorial-section-heading"><h2 id="service-cases-title">{{ 'services.examples'|trans }}</h2></div><div class="case-grid">{% for case in cases|filter(case => case.id in service.case_ids) %}{% include 'editorial/_case_card.html.twig' %}{% endfor %}</div></section>
+    {% endif %}
+    {% set faqs = [] %}{% for index in 1..3 %}{% set faqs = faqs|merge([{'question': (service.key ~ '.faq.' ~ index ~ '.question')|trans, 'answer': (service.key ~ '.faq.' ~ index ~ '.answer')|trans}]) %}{% endfor %}
+    {% include 'partials/_faq.html.twig' with {'faq_intro': (service.key ~ '.nav')|trans, 'faq_heading': 'services.faq_heading'|trans, 'faq_emphasis': 'services.faq_emphasis'|trans, 'faqs': faqs} %}
+    <section class="section container reader-related" aria-labelledby="service-guides-title"><div class="editorial-section-heading"><h2 id="service-guides-title">{{ 'services.guides'|trans }}</h2></div><div class="journal-grid">{% for article in articles|filter(article => article.id in service.article_ids) %}{% include 'editorial/_article_card.html.twig' with {'heading_level': 3} %}{% endfor %}</div></section>
+</main>
+{% endblock %}

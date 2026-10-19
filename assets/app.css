@@ -314,7 +314,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .booking-icon { display: grid; place-items: center; width: 65px; height: 65px; border: 1px solid #9dcdbb55; border-radius: 20px; color: var(--accent); background: var(--background); margin-bottom: 23px; }
 .booking-icon .icon { width: 30px; height: 30px; }
 .booking-placeholder .eyebrow { font-size: 12px; }
-.booking-placeholder h3 { font-size: 38px; letter-spacing: -1px; margin-top: 18px; }
+.booking-placeholder h2 { font-size: 38px; letter-spacing: -1px; margin-top: 18px; }
 .booking-placeholder > p:not(.eyebrow) { max-width: 450px; font-size: 17px; color: var(--muted); line-height: 1.8; margin-top: 21px; }
 .booking-notice { margin-top: 22px; color: var(--muted); font-size: 13px; }
 .booking-placeholder .button { margin-top: 22px; }
@@ -328,7 +328,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .contact-person > div { display: flex; flex-direction: column; gap: 2px; }
 .contact-person strong { font-size: 17px; font-weight: 500; }
 .contact-person > div > span { font-size: 13px; color: var(--muted); }
-.contact-direct-card h3 { font-size: 29px; letter-spacing: -.7px; line-height: 1.2; margin-top: 27px; }
+.contact-direct-card h2 { font-size: 29px; letter-spacing: -.7px; line-height: 1.2; margin-top: 27px; }
 .contact-direct-card > p { color: var(--muted); font-size: 17px; line-height: 1.8; margin-top: 18px; }
 .contact-email { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; margin-top: 24px; }
 .contact-email .icon { width: 16px; height: 16px; }
@@ -598,7 +598,7 @@ ul { list-style: none; margin: 0; padding: 0; }
     .cal-booking { min-height: 610px; }
     .booking-external { font-size: 13px; padding-block: 17px 7px; }
     .booking-placeholder { min-height: 485px; padding: 31px 19px; }
-    .booking-placeholder h3 { font-size: 30px; }
+    .booking-placeholder h2 { font-size: 30px; }
     .booking-placeholder > p:not(.eyebrow) { font-size: 16px; }
     .booking-notice { font-size: 12px; }
     .booking-placeholder .button { font-size: 14px; padding-left: 15px; gap: 8px; }

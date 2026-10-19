@@ -1,0 +1,11 @@
+{% autoescape false %}
+{% if link_id %}
+{% set paragraph_link = entry.links[link_id] %}
+{% set parameters = {'_locale': document_locale} %}
+{% if paragraph_link.slugs is defined %}{% set parameters = parameters|merge({'slug': paragraph_link.slugs[document_locale]}) %}{% endif %}
+{% set markdown_link = '[' ~ (entry.key ~ '.links.' ~ link_id)|trans({}, 'messages', document_locale) ~ '](' ~ site_url|trim('/') ~ path(paragraph_link.route, parameters) ~ ')' %}
+{{ paragraph_key|trans({'%link%': markdown_link}, 'messages', document_locale) }}
+{% else %}
+{{ paragraph_key|trans({}, 'messages', document_locale) }}
+{% endif %}
+{% endautoescape %}

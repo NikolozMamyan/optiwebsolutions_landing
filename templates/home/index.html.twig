@@ -55,7 +55,7 @@
             <div class="section-heading reveal">
                 <p class="eyebrow">{{ 'Simple, clair, ensemble'|trans }}</p>
                 <h2 id="approche-title">{{ 'De votre idée au concret,'|trans }}<br><em>{{ 'sans les complications.'|trans }}</em></h2>
-                <p>{{ 'Vous connaissez votre métier. Nous donnons vie à vos idées.'|trans }}</p>
+                <p>{{ 'Vous connaissez votre métier. Nous donnons vie à vos idées.'|trans }}</p><p class="home-entity-summary">{{ 'home.entity_summary'|trans }}</p>
             </div>
             <div class="steps-grid">
                 {% for step in [
@@ -86,7 +86,7 @@
                     <h3>{{ 'Des sites web'|trans }}<br>{{ 'qui font la différence.'|trans }}</h3>
                     <p>{{ 'Une vitrine soignée, rapide et pensée pour transformer vos visiteurs en contacts. Votre image, jusque dans le moindre détail.'|trans }}</p>
                     <ul class="check-list"><li>{{ 'Design adapté à votre identité'|trans }}</li><li>{{ 'Mobile, tablette et ordinateur'|trans }}</li><li>{{ 'Structure pensée pour le référencement'|trans }}</li></ul>
-                    <a class="text-link" href="#offres">{{ 'Trouver l’inspiration'|trans }} {{ ui.icon('arrow-up-right') }}</a>
+                    <a class="text-link" href="{{ path('app_service', {'slug': service_catalog.all.website.slugs[app.request.locale]}) }}">{{ 'service.website.nav'|trans }} {{ ui.icon('arrow-up-right') }}</a>
                 </article>
                 <article class="expertise-card reveal">
                     <span class="service-icon service-icon-purple">{{ ui.icon('code') }}</span>
@@ -94,7 +94,7 @@
                     <h3>{{ 'Des applications'|trans }}<br>{{ 'qui vous ressemblent.'|trans }}</h3>
                     <p>{{ 'Un espace client, un outil métier, une plateforme SaaS. Une solution qui s’adapte à vos processus et accompagne votre activité.'|trans }}</p>
                     <ul class="check-list"><li>{{ 'Développement Symfony sur mesure'|trans }}</li><li>{{ 'Connexions à vos outils existants'|trans }}</li><li>{{ 'Une base conçue pour évoluer'|trans }}</li></ul>
-                    <a class="text-link" href="#solutions">{{ 'Explorer les possibilités'|trans }} {{ ui.icon('arrow-up-right') }}</a>
+                    <a class="text-link" href="{{ path('app_service', {'slug': service_catalog.all.symfony.slugs[app.request.locale]}) }}">{{ 'service.symfony.nav'|trans }} {{ ui.icon('arrow-up-right') }}</a><a class="text-link expertise-secondary-link" href="{{ path('app_service', {'slug': service_catalog.all.saas.slugs[app.request.locale]}) }}">{{ 'service.saas.nav'|trans }} {{ ui.icon('arrow-up-right') }}</a>
                 </article>
                 <article class="expertise-card reveal">
                     <span class="service-icon service-icon-blue">{{ ui.icon('server') }}</span>
@@ -102,7 +102,7 @@
                     <h3>{{ 'Une informatique'|trans }}<br>{{ 'entre de bonnes mains.'|trans }}</h3>
                     <p>{{ 'Gardez le cap sur votre métier. Nous vous accompagnons dans le suivi, la maintenance et la gestion de votre environnement informatique.'|trans }}</p>
                     <ul class="check-list"><li>{{ 'Suivi de votre infrastructure'|trans }}</li><li>{{ 'Maintenance et mises à jour'|trans }}</li><li>{{ 'Un contact pour vos besoins techniques'|trans }}</li></ul>
-                    <a class="text-link" href="#offres">{{ 'Parler infogérance'|trans }} {{ ui.icon('arrow-up-right') }}</a>
+                    <a class="text-link" href="{{ path('app_service', {'slug': service_catalog.all.managed.slugs[app.request.locale]}) }}">{{ 'service.managed.nav'|trans }} {{ ui.icon('arrow-up-right') }}</a>
                 </article>
             </div>
             <article class="ai-card reveal">
@@ -240,7 +240,7 @@
         </section>
         <section class="section container home-journal" aria-labelledby="home-journal-title">
             <div class="editorial-section-heading reveal"><div><p class="eyebrow">{{ 'editorial.home.eyebrow'|trans }}</p><h2 id="home-journal-title">{{ 'editorial.home.heading'|trans }}<br><em>{{ 'editorial.home.emphasis'|trans }}</em></h2><p>{{ 'editorial.home.intro'|trans }}</p></div><a class="button button-outline" href="{{ path('app_blog') }}">{{ 'editorial.home.all'|trans }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>
-            <div class="journal-grid">{% for article in articles|slice(0, 2) %}{% include 'editorial/_article_card.html.twig' %}{% endfor %}</div>
+            <div class="journal-grid">{% for article in articles|slice(0, 2) %}{% include 'editorial/_article_card.html.twig' with {'heading_level': 3} %}{% endfor %}</div>
         </section>
         {% include 'editorial/_cases_section.html.twig' %}
     </main>

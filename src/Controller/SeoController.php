@@ -31,6 +31,12 @@ final class SeoController extends AbstractController
         return $this->render('seo/llms.txt.twig', ['articles' => $editorial->articles(), 'cases' => $editorial->cases()], new Response('', 200, ['Content-Type' => 'text/plain; charset=UTF-8']));
     }
 
+    #[Route('/llms-full.txt', name: 'app_llms_full', methods: ['GET'])]
+    public function llmsFull(EditorialContent $editorial): Response
+    {
+        return $this->render('seo/llms-full.txt.twig', ['articles' => $editorial->articles(), 'cases' => $editorial->cases()], new Response('', 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'X-Robots-Tag' => 'noindex, follow']));
+    }
+
     #[Route(path: ['fr' => '/blog/feed.xml', 'en' => '/en/blog/feed.xml'], name: 'app_blog_feed', methods: ['GET'])]
     public function feed(EditorialContent $editorial): Response
     {

@@ -16,7 +16,7 @@
                         <div class="booking-placeholder">
                             <span class="booking-icon">{{ ui.icon('calendar') }}</span>
                             <p class="eyebrow">{{ 'Appel découverte'|trans }}</p>
-                            <h3>{{ 'Prenons le temps'|trans }}<br><em>{{ 'de parler de votre projet.'|trans }}</em></h3>
+                            <h2>{{ 'Prenons le temps'|trans }}<br><em>{{ 'de parler de votre projet.'|trans }}</em></h2>
                             <p>{{ 'Votre idée, vos priorités et les prochaines étapes. Un échange simple pour faire connaissance et avancer ensemble.'|trans }}</p>
                             <span class="booking-notice">{{ 'Les créneaux en ligne seront bientôt disponibles.'|trans }}</span>
                             <a class="button button-dark" href="mailto:{{ contact_email }}?subject={{ 'Un rendez-vous pour discuter de mon projet'|trans|url_encode }}">{{ 'Convenir d’un rendez-vous'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
@@ -26,7 +26,7 @@
                 <aside class="contact-direct-card reveal" aria-labelledby="direct-contact-title">
                     <span class="contact-availability"><span class="status-dot"></span> {{ 'Échange direct'|trans }}</span>
                     <div class="contact-person"><span class="contact-avatar"><img src="{{ asset('nikoloz-avatar.jpg') }}" alt="{{ 'Portrait de Nikoloz'|trans }}" width="384" height="384" loading="lazy"><span class="avatar-whatsapp">{{ ui.icon('whatsapp') }}</span></span><div><strong>Nikoloz</strong><span>{{ site_name }}</span></div></div>
-                    <h3 id="direct-contact-title">{{ 'Envie d’en parler'|trans }}<br><em>{{ 'dès maintenant ?'|trans }}</em></h3>
+                    <h2 id="direct-contact-title">{{ 'Envie d’en parler'|trans }}<br><em>{{ 'dès maintenant ?'|trans }}</em></h2>
                     <p>{{ 'Écrivez-moi directement sur WhatsApp. Je vous réponds personnellement, sans intermédiaire ni formulaire à remplir.'|trans }}</p>
                     <a class="contact-email" href="mailto:{{ contact_email }}">{{ ui.icon('mail') }} {{ 'Vous préférez l’e-mail ?'|trans }}</a>
                     <a class="button button-whatsapp" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ ui.icon('whatsapp') }} {{ 'Écrire sur WhatsApp'|trans }}</a>

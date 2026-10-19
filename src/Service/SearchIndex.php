@@ -9,6 +9,7 @@ final class SearchIndex
 {
     public function __construct(
         private readonly EditorialContent $editorial,
+        private readonly ServiceContent $services,
         private readonly UrlGeneratorInterface $router,
         #[Autowire('%env(DEFAULT_URI)%')] private readonly string $siteUrl,
     ) {
@@ -17,8 +18,11 @@ final class SearchIndex
     public function pages(): array
     {
         $pages = [];
-        foreach (['app_home', 'app_contact', 'app_blog', 'app_case_studies', 'app_legal', 'app_privacy_policy', 'app_terms_and_conditions'] as $route) {
+        foreach (['app_home', 'app_contact', 'app_blog', 'app_case_studies', 'app_author', 'app_legal', 'app_privacy_policy', 'app_terms_and_conditions'] as $route) {
             $pages[] = ['urls' => $this->urls($route)];
+        }
+        foreach ($this->services->all() as $service) {
+            $pages[] = ['urls' => $this->urls('app_service', $service['slugs']), 'cover' => $service['cover']];
         }
         foreach (['app_blog_article' => $this->editorial->articles(), 'app_case_study' => $this->editorial->cases()] as $route => $entries) {
             foreach ($entries as $entry) {

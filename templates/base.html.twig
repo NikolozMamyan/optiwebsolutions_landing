@@ -2,8 +2,8 @@
 {% set site_origin = site_url|trim('/') %}
 {% set route_parameters = localized_parameters|default({'fr': {}, 'en': {}}) %}
 {% set canonical_url = site_origin ~ path(current_route, route_parameters[app.request.locale]|merge({'_locale': app.request.locale})) %}
-{% set social_image = entry is defined ? entry.cover : 'blog/creation-site-web-strasbourg.webp' %}
-{% set social_image_alt = entry is defined ? (entry.key ~ '.image_alt')|trans : 'editorial.default_image_alt'|trans %}
+{% set social_image = entry is defined ? entry.cover : (service is defined ? service.cover : 'blog/creation-site-web-strasbourg.webp') %}
+{% set social_image_alt = entry is defined ? (entry.key ~ '.image_alt')|trans : (service is defined ? (service.key ~ '.image_alt')|trans : 'editorial.default_image_alt'|trans) %}
 {% set analytics_enabled = app.environment == 'prod' and (google_analytics_id|default('') matches '/^G-[A-Z0-9]+$/') %}
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
@@ -39,20 +39,32 @@
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="preload" href="{{ asset('fonts/inter-tight.woff2') }}" as="font" type="font/woff2" crossorigin>
         <link rel="preload" href="{{ asset('fonts/instrument-serif-italic.woff2') }}" as="font" type="font/woff2" crossorigin>
-        <script src="{{ asset('theme.js') }}"></script>
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
+        <script src="{{ asset('theme.js') }}" nonce="{{ app.request.attributes.get('csp_nonce') }}"></script>
+        {% block importmap %}{{ importmap('app', {'nonce': app.request.attributes.get('csp_nonce')}) }}{% endblock %}
         <script type="application/ld+json">{{ {
             '@context': 'https://schema.org',
             '@graph': [
                 {
-                    '@type': 'Organization', '@id': site_origin ~ '/#organization',
+                    '@type': ['Organization', 'LocalBusiness'], '@id': site_origin ~ '/#organization',
                     'name': site_name, 'url': site_origin ~ '/',
                     'logo': {'@type': 'ImageObject', 'url': site_origin ~ asset('logo.svg')},
                     'image': site_origin ~ asset('blog/creation-site-web-strasbourg.webp'),
                     'email': contact_email, 'telephone': contact_phone,
+                    'legalName': 'Nikoloz Mamyan', 'vatID': 'FR23852249408',
+                    'identifier': {'@type': 'PropertyValue', 'propertyID': 'SIREN', 'value': '852249408'},
+                    'address': {'@type': 'PostalAddress', 'addressLocality': 'Strasbourg', 'addressRegion': 'Alsace', 'addressCountry': 'FR'},
+                    'founder': {'@id': site_origin ~ '/#nikoloz-mamyan'},
                     'location': {'@type': 'Place', 'name': 'Strasbourg, France'},
                     'areaServed': {'@type': 'Country', 'name': 'France'},
                     'contactPoint': {'@type': 'ContactPoint', 'contactType': 'customer service', 'email': contact_email, 'telephone': contact_phone, 'availableLanguage': ['French', 'English']}
+                },
+                {
+                    '@type': 'Person', '@id': site_origin ~ '/#nikoloz-mamyan',
+                    'name': 'Nikoloz Mamyan', 'url': site_origin ~ path('app_author'),
+                    'image': site_origin ~ asset('nikoloz-avatar.jpg'),
+                    'jobTitle': 'author.role'|trans, 'worksFor': {'@id': site_origin ~ '/#organization'},
+                    'sameAs': [author_linkedin_url],
+                    'knowsAbout': ['Symfony', 'PHP', 'Web development', 'Web applications', 'IT maintenance']
                 },
                 {
                     '@type': 'WebSite', '@id': site_origin ~ '/#website',
@@ -60,12 +72,13 @@
                     'publisher': {'@id': site_origin ~ '/#organization'}, 'inLanguage': ['fr', 'en']
                 },
                 {
-                    '@type': current_route == 'app_contact' ? 'ContactPage' : (current_route in ['app_blog', 'app_case_studies'] ? 'CollectionPage' : 'WebPage'),
+                    '@type': current_route == 'app_author' ? 'ProfilePage' : (current_route == 'app_contact' ? 'ContactPage' : (current_route in ['app_blog', 'app_case_studies'] ? 'CollectionPage' : 'WebPage')),
                     '@id': canonical_url ~ '#webpage', 'url': canonical_url,
-                    'name': block('title')|striptags|trim, 'description': block('description')|striptags|trim,
+                    'name': block('title')|plain_text|trim, 'description': block('description')|plain_text|trim,
                     'inLanguage': app.request.locale,
                     'isPartOf': {'@id': site_origin ~ '/#website'},
-                    'about': {'@id': site_origin ~ '/#organization'}
+                    'about': {'@id': site_origin ~ '/#organization'},
+                    'mainEntity': {'@id': current_route == 'app_author' ? site_origin ~ '/#nikoloz-mamyan' : (service is defined ? canonical_url ~ '#service' : (entry is defined ? canonical_url ~ '#article' : site_origin ~ '/#organization'))}
                 }
             ]
         }|json_encode(15)|raw }}</script>

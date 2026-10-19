@@ -21,6 +21,12 @@ final class HomeController extends AbstractController
         return $this->render('contact/index.html.twig');
     }
 
+    #[Route(path: ['fr' => '/auteur/nikoloz-mamyan', 'en' => '/en/author/nikoloz-mamyan'], name: 'app_author', methods: ['GET'])]
+    public function author(EditorialContent $editorial): Response
+    {
+        return $this->render('author/show.html.twig', ['articles' => $editorial->articles(), 'cases' => $editorial->cases()]);
+    }
+
     #[Route(path: ['fr' => '/legal', 'en' => '/en/legal'], name: 'app_legal', methods: ['GET'])]
     public function legal(): Response
     {
