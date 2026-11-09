@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% block title %}Connexion administrateur{% endblock %}
+{% block content %}
+<section class="admin-login">
+    <p class="eyebrow">Espace administrateur</p><h1>Heureux de<br><em>vous retrouver.</em></h1><p>Connectez-vous pour retrouver vos demandes de contact.</p>
+    {% if error %}<p class="admin-alert" role="alert">Identifiants invalides ou connexion temporairement bloquée. Veuillez réessayer.</p>{% endif %}
+    <form method="post" action="{{ path('admin_login') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <label for="admin-email">Adresse e-mail</label><input id="admin-email" type="email" name="email" value="{{ email }}" autocomplete="username" maxlength="180" required autofocus>
+        <label for="admin-password">Mot de passe</label><input id="admin-password" type="password" name="password" autocomplete="current-password" required>
+        <button class="button button-dark" type="submit">Se connecter<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></button>
+    </form>
+</section>
+{% endblock %}

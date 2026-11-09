@@ -2,8 +2,13 @@
 
 namespace App\Service;
 
+use App\Repository\BlogRepository;
+use Symfony\Component\Translation\TranslatorBagInterface;
+
 final class EditorialContent
 {
+    public function __construct(private BlogRepository $blogs, private TranslatorBagInterface $translator) {}
+
     private const ARTICLES = [
         [
             'id' => 'wordpress_symfony', 'key' => 'blog.wordpress_symfony',
@@ -429,6 +434,19 @@ final class EditorialContent
 
     public function articles(): array
     {
+        $articles = [];
+        foreach ($this->blogs->findBy([], ['id' => 'ASC']) as $blog) {
+            foreach ($blog->getTranslations() as $locale => $messages) {
+                $this->translator->getCatalogue($locale)->add($messages);
+            }
+            $articles[] = $blog->getMetadata();
+        }
+
+        return $articles;
+    }
+
+    public static function articleSeeds(): array
+    {
         return self::ARTICLES;
     }
 
@@ -439,7 +457,7 @@ final class EditorialContent
 
     public function findArticle(string $slug, string $locale): ?array
     {
-        return $this->find(self::ARTICLES, $slug, $locale);
+        return $this->find($this->articles(), $slug, $locale);
     }
 
     public function findCase(string $slug, string $locale): ?array

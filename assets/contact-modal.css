@@ -46,6 +46,8 @@ html.contact-modal-open { scrollbar-gutter: stable; }
 .contact-field input:focus, .contact-field textarea:focus { border-color: color-mix(in srgb, var(--accent) 65%, var(--border)); outline: 0; background: var(--background); box-shadow: 0 0 0 3px var(--accent-soft); }
 .contact-modal-submit.button { display: flex; justify-content: space-between; width: 100%; min-height: 50px; margin-top: 18px; padding: 7px 8px 7px 20px; border: 0; background: var(--text); color: var(--background); font-size: 15px; }
 .contact-modal-submit .button-arrow { background: var(--background); color: var(--text); }
+.contact-modal-submit:disabled { opacity: .6; cursor: wait; transform: none; }
+.contact-modal-error { margin-top: 10px; color: #b44242; font-size: 12px; line-height: 1.4; }
 .contact-modal-demo { margin-top: 10px; color: var(--muted); text-align: center; font-size: 10px; line-height: 1.5; }
 .contact-modal-success { width: 100%; text-align: center; }
 .contact-success-check { display: grid; place-items: center; width: 98px; height: 98px; margin: 0 auto 30px; border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border)); border-radius: 50%; background: var(--gradient); color: var(--accent); box-shadow: 0 0 0 11px color-mix(in srgb, var(--accent-soft) 55%, transparent); animation: contact-check-enter .5s cubic-bezier(.22, 1, .36, 1); }

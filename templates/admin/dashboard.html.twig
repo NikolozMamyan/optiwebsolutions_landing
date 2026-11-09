@@ -1,0 +1,9 @@
+{% extends 'admin/base.html.twig' %}
+{% import '_ui.html.twig' as ui %}
+{% block title %}Tableau de bord{% endblock %}
+{% block content %}
+<div class="admin-heading"><div><p class="eyebrow">Votre activité, en un coup d’œil</p><h1>Tableau de bord</h1><p>{{ app.user.email }}</p></div><a class="button button-outline" href="{{ path('app_home', {'_locale': 'fr'}) }}">Voir le site<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>
+<div class="admin-stats"><article><span>Demandes reçues</span><strong>{{ total }}</strong><p>Depuis le formulaire du site</p></article><article><span>Aujourd’hui</span><strong>{{ today }}</strong><p>Nouvelles prises de contact</p></article><article><span>Articles en base</span><strong>{{ blogs }}</strong><p>Contenus français et anglais</p></article></div>
+<div class="admin-section-title"><h2>Les dernières demandes</h2><a class="text-link" href="{{ path('admin_prospects') }}">Tous les prospects {{ ui.icon('arrow-right') }}</a></div>
+{% include 'admin/_prospects.html.twig' %}
+{% endblock %}

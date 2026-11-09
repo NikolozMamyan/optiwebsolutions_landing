@@ -3,7 +3,20 @@ framework:
     secret: '%env(APP_SECRET)%'
 
     # Note that the session will be started ONLY if you read or write from it.
-    session: true
+    csrf_protection: true
+    session:
+        handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        name: OWSSESSID
+        cookie_secure: auto
+        cookie_httponly: true
+        cookie_samesite: lax
+        cookie_lifetime: 604800
+        gc_maxlifetime: 604800
+    rate_limiter:
+        contact:
+            policy: fixed_window
+            limit: 5
+            interval: '15 minutes'
 
     #esi: true
     #fragments: true
@@ -13,3 +26,8 @@ when@test:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+
+when@prod:
+    framework:
+        session:
+            cookie_secure: true

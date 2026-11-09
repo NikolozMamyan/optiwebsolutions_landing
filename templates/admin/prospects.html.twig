@@ -1,0 +1,7 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Prospects{% endblock %}
+{% block content %}
+<div class="admin-heading"><div><p class="eyebrow">Des échanges à poursuivre</p><h1>Vos prospects</h1><p>{{ total }} demande{{ total > 1 ? 's' : '' }} reçue{{ total > 1 ? 's' : '' }}</p></div></div>
+{% include 'admin/_prospects.html.twig' %}
+{% if pages > 1 %}<nav class="admin-pagination" aria-label="Pagination des prospects">{% if page > 1 %}<a class="button button-outline" href="{{ path('admin_prospects', {'page': page - 1}) }}">Précédent</a>{% endif %}<span>Page {{ page }} sur {{ pages }}</span>{% if page < pages %}<a class="button button-outline" href="{{ path('admin_prospects', {'page': page + 1}) }}">Suivant</a>{% endif %}</nav>{% endif %}
+{% endblock %}

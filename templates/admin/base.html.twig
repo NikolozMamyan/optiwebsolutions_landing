@@ -1,0 +1,17 @@
+{% import '_ui.html.twig' as ui %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#ffffff">
+    <title>{% block title %}Backoffice{% endblock %} — {{ site_name }}</title>
+    <link rel="icon" href="/favicon.png"><link rel="preload" href="{{ asset('fonts/inter-tight.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <script src="{{ asset('theme.js') }}" nonce="{{ app.request.attributes.get('csp_nonce') }}"></script>
+    {{ importmap('admin', {'nonce': app.request.attributes.get('csp_nonce')}) }}
+</head>
+<body class="admin-page">
+    <header class="admin-header container"><a class="brand" href="{{ is_granted('ROLE_ADMIN') ? path('admin_dashboard') : path('app_home', {'_locale': 'fr'}) }}">{% include 'partials/_brand.html.twig' %}</a><span class="admin-badge">Backoffice</span>
+        {% if is_granted('ROLE_ADMIN') %}<nav aria-label="Administration"><a href="{{ path('admin_dashboard') }}"{% if app.request.attributes.get('_route') == 'admin_dashboard' %} aria-current="page"{% endif %}>Tableau de bord</a><a href="{{ path('admin_prospects') }}"{% if app.request.attributes.get('_route') == 'admin_prospects' %} aria-current="page"{% endif %}>Prospects</a></nav><form method="post" action="{{ path('admin_logout') }}"><input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}"><button class="text-link" type="submit">Déconnexion {{ ui.icon('arrow-up-right') }}</button></form>{% endif %}
+    </header>
+    <main class="container admin-main">{% block content %}{% endblock %}</main>
+</body>
+</html>

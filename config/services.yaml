@@ -18,6 +18,14 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
+        exclude: '../src/{Entity,Kernel.php}'
+
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        arguments:
+            - '%env(DATABASE_URL)%'
+            - { db_table: app_sessions }
+
+    Symfony\Component\Translation\TranslatorBagInterface: '@translator.default'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

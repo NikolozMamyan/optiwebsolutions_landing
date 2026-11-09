@@ -1,17 +1,33 @@
 # OptiWebSolutions
 
-Site vitrine français/anglais avec Symfony 7.4, Twig, AssetMapper et Stimulus, sans bundler Node.js ni base de données.
+Site vitrine français/anglais avec Symfony 7.4, Twig, AssetMapper, Stimulus et MySQL, sans bundler Node.js.
 
 ## Lancement local
 
-PHP 8.2 ou supérieur et Composer sont nécessaires.
+PHP 8.2 ou supérieur, PDO MySQL et Composer sont nécessaires.
 
 ```sh
 composer install
+php bin/console doctrine:migrations:migrate
+php bin/console app:blog:import
 symfony server:start --no-tls
 ```
 
 Ouvrir l’adresse affichée par Symfony, généralement http://127.0.0.1:8000.
+
+Renseigner `DATABASE_URL` (MySQL, `charset=utf8mb4`) et un `APP_SECRET` aléatoire dans `.env.local` avant les migrations. Ce fichier ne doit pas être versionné.
+
+## Backoffice
+
+Créer le premier administrateur avec `php bin/console app:admin:create votre@email.fr`. Le mot de passe est demandé sans affichage ; aucun compte ni mot de passe par défaut n’est livré. La connexion est disponible à `/admin/login`, le tableau de bord à `/admin` et les demandes à `/admin/prospects`. Ces pages nécessitent `ROLE_ADMIN`.
+
+Les sessions sont stockées dans `app_sessions`. Chaque navigateur conserve son cookie de session indépendant, valable sept jours ; une déconnexion n’affecte que la session courante. Les cookies sont HttpOnly, SameSite=Lax et obligatoirement Secure en production, qui doit être servie en HTTPS. Les connexions et déconnexions sont protégées par CSRF, avec limitation des tentatives de connexion.
+
+La modale enregistre les demandes en base après validation serveur et contrôle CSRF, avec une limite de cinq demandes par adresse IP en quinze minutes. Prénom, nom et e-mail sont requis ; téléphone et message sont facultatifs. Le backoffice permet de consulter et copier les informations. Aucun e-mail automatique n’est envoyé.
+
+`app:blog:import` importe les 14 articles actuels, leurs structures et leurs textes FR/EN dans l’entité `Blog`, sans écraser les entrées déjà présentes. Les pages publiques, flux et métadonnées lisent désormais ces articles depuis la base. La gestion éditoriale n’est pas encore ajoutée au backoffice.
+
+Tests ciblés : configurer `.env.test.local` avec un `DATABASE_URL` visant une base nommée `..._backend` ; Doctrine utilise le suffixe `_test`. Créer cette base isolée avec `php bin/console doctrine:database:create --env=test`, appliquer les migrations avec `--env=test`, puis lancer `php vendor/bin/phpunit tests/BackendTest.php`. Les tests refusent toute base dont le nom ne finit pas par `_backend_test`.
 
 Le français est disponible à `/`, l’anglais à `/en`. La page contact et les pages légales ont également leur version sous `/en/`. Le lien de langue conserve la page courante.
 
@@ -27,11 +43,11 @@ Le blog est disponible à `/blog` et `/en/blog`. Les études de cas ont leurs pa
 - Design et animations : `assets/app.css`.
 - Interactions : contrôleurs Stimulus dans `assets/controllers/`, chargés par `assets/app.js` et `importmap.php`. `assets/theme.js` restaure le thème avant l’affichage pour éviter un clignotement.
 - Traductions : `translations/messages.fr.json` et `translations/messages.en.json`, utilisées dans Twig avec `|trans`. Les titres, descriptions, libellés d’accessibilité et données FAQ sont traduits.
-- Blog et études de cas : métadonnées, slugs, dates et structure dans `src/Service/EditorialContent.php` ; textes sous les clés `blog.*`, `case.*` et `editorial.*` des catalogues JSON ; affichage dans `templates/editorial/`.
+- Blog : articles et traductions en base, import initial depuis `src/Service/EditorialContent.php` et les clés `blog.*` des catalogues JSON. Études de cas : métadonnées dans ce service et textes sous les clés `case.*`. Affichage dans `templates/editorial/`.
 - Couvertures du blog : `assets/blog/`. Les illustrations ont été générées avec l’IA ; les captures des études de cas proviennent des projets présentés. Les images sont servies en WebP avec des variantes de 640 pixels. Les originaux de projet sont conservés.
 - Coordonnées : variables `SITE_NAME`, `CONTACT_EMAIL`, `CONTACT_PHONE`, `CONTACT_PHONE_DISPLAY` et `WHATSAPP_NUMBER` dans `.env`, surchargeables dans `.env.local`. Le numéro WhatsApp doit contenir uniquement les chiffres avec l’indicatif international.
 
-Les boutons WhatsApp ouvrent une conversation avec un message prérempli. Les liens e-mail ouvrent la messagerie du visiteur ; il n’y a pas de formulaire ni de serveur d’envoi d’e-mails.
+Les boutons WhatsApp ouvrent une conversation avec un message prérempli. Les liens e-mail ouvrent la messagerie du visiteur. Les boutons de contact ouvrent la modale ; le lien « Prendre rendez-vous » du pied de page conserve l’accès à la page contact et à son calendrier.
 
 La réservation intégrée utilise l’événement `optiwebsolutions/15min`. Pour changer l’événement, renseigner `CALCOM_EVENT` dans `.env.local` avec son chemin, par exemple `votre-nom/appel-decouverte` pour `https://cal.com/votre-nom/appel-decouverte`. Le calendrier officiel Cal.com se charge uniquement sur la page contact, à l’approche du calendrier. Sans lien configuré, les visiteurs peuvent convenir d’un rendez-vous par e-mail.
 

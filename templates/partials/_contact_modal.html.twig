@@ -1,6 +1,6 @@
 {% import '_ui.html.twig' as ui %}
 {% set modal_locale = contact_modal_locale|default(app.request.locale) %}
-<dialog id="contact-modal" class="contact-modal" aria-labelledby="contact-modal-title" aria-describedby="contact-modal-intro" data-controller="contact-modal" data-contact-modal-urls-value="{{ [path('app_contact', {'_locale': 'fr'}), path('app_contact', {'_locale': 'en'})]|json_encode|e('html_attr') }}" data-contact-modal-name-error-value="{{ 'contact.modal.name_error'|trans({}, 'messages', modal_locale) }}" data-action="click@document->contact-modal#open click->contact-modal#backdrop keydown->contact-modal#keydown close->contact-modal#closed">
+<dialog id="contact-modal" class="contact-modal" aria-labelledby="contact-modal-title" aria-describedby="contact-modal-intro" data-controller="contact-modal" data-contact-modal-urls-value="{{ [path('app_contact', {'_locale': 'fr'}), path('app_contact', {'_locale': 'en'})]|json_encode|e('html_attr') }}" data-contact-modal-name-error-value="{{ 'contact.modal.name_error'|trans({}, 'messages', modal_locale) }}" data-contact-modal-error-message-value="{{ 'contact.modal.error'|trans({}, 'messages', modal_locale) }}" data-contact-modal-rate-limit-message-value="{{ 'contact.modal.rate_limit'|trans({}, 'messages', modal_locale) }}" data-contact-modal-csrf-message-value="{{ 'contact.modal.csrf_error'|trans({}, 'messages', modal_locale) }}" data-action="click@document->contact-modal#open click->contact-modal#backdrop keydown->contact-modal#keydown close->contact-modal#closed">
     <div class="contact-modal-panel">
         <button class="contact-modal-close icon-button" type="button" aria-label="{{ 'contact.modal.close'|trans({}, 'messages', modal_locale) }}" data-action="contact-modal#close">{{ ui.icon('close') }}</button>
         <aside class="contact-modal-details">
@@ -17,17 +17,22 @@
             <div class="contact-modal-person"><img src="{{ asset('nikoloz-avatar.jpg') }}" alt="" width="48" height="48"><div><strong>Nikoloz Mamyan</strong><span>{{ 'contact.modal.location'|trans({}, 'messages', modal_locale) }}</span></div><span class="status-dot" aria-hidden="true"></span></div>
         </aside>
         <div class="contact-modal-main">
-            <form class="contact-modal-form" method="dialog" data-contact-modal-target="form" data-action="submit->contact-modal#submit">
+            <form class="contact-modal-form" method="post" action="{{ path('app_prospect_submit', {'_locale': modal_locale}) }}" data-contact-modal-target="form" data-action="submit->contact-modal#submit input->contact-modal#clearValidation">
+                <input type="hidden" name="_token" value="{{ csrf_token('contact') }}">
                 <div class="contact-form-heading"><h2 id="contact-modal-title">{{ 'contact.modal.form_title'|trans({}, 'messages', modal_locale) }}</h2><p id="contact-modal-intro">{{ 'contact.modal.form_intro'|trans({}, 'messages', modal_locale) }}</p></div>
                 <div class="contact-form-fields">
-                    <div class="contact-field"><label for="contact-full-name">{{ 'contact.modal.full_name'|trans({}, 'messages', modal_locale) }} <span aria-hidden="true">*</span></label><input id="contact-full-name" type="text" name="full_name" autocomplete="name" placeholder="{{ 'contact.modal.name_placeholder'|trans({}, 'messages', modal_locale) }}" required autofocus data-contact-modal-target="fullName" data-action="input->contact-modal#clearValidation"></div>
+                    <div class="contact-form-row">
+                        <div class="contact-field"><label for="contact-first-name">{{ 'contact.modal.first_name'|trans({}, 'messages', modal_locale) }} <span aria-hidden="true">*</span></label><input id="contact-first-name" type="text" name="firstName" autocomplete="given-name" maxlength="100" required autofocus data-contact-modal-target="firstName"></div>
+                        <div class="contact-field"><label for="contact-last-name">{{ 'contact.modal.last_name'|trans({}, 'messages', modal_locale) }} <span aria-hidden="true">*</span></label><input id="contact-last-name" type="text" name="lastName" autocomplete="family-name" maxlength="100" required data-contact-modal-target="lastName"></div>
+                    </div>
                     <div class="contact-form-row">
                         <div class="contact-field"><label for="contact-email">{{ 'contact.modal.email'|trans({}, 'messages', modal_locale) }} <span aria-hidden="true">*</span></label><input id="contact-email" type="email" name="email" autocomplete="email" placeholder="{{ 'contact.modal.email_placeholder'|trans({}, 'messages', modal_locale) }}" required></div>
                         <div class="contact-field"><label for="contact-phone">{{ 'Téléphone'|trans({}, 'messages', modal_locale) }} <span class="contact-field-optional">{{ 'contact.modal.optional'|trans({}, 'messages', modal_locale) }}</span></label><input id="contact-phone" type="tel" name="phone" autocomplete="tel" placeholder="{{ 'contact.modal.phone_placeholder'|trans({}, 'messages', modal_locale) }}"></div>
                     </div>
                     <div class="contact-field"><label for="contact-message">{{ 'contact.modal.message'|trans({}, 'messages', modal_locale) }} <span class="contact-field-optional">{{ 'contact.modal.optional'|trans({}, 'messages', modal_locale) }}</span></label><textarea id="contact-message" name="message" rows="3" placeholder="{{ 'contact.modal.message_placeholder'|trans({}, 'messages', modal_locale) }}"></textarea></div>
                 </div>
-                <button class="button contact-modal-submit" type="submit">{{ 'contact.modal.submit'|trans({}, 'messages', modal_locale) }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></button>
+                <p class="contact-modal-error" role="alert" hidden data-contact-modal-target="error"></p>
+                <button class="button contact-modal-submit" type="submit" data-contact-modal-target="submitButton">{{ 'contact.modal.submit'|trans({}, 'messages', modal_locale) }}<span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></button>
                 <p class="contact-modal-demo">{{ 'contact.modal.demo'|trans({}, 'messages', modal_locale) }}</p>
             </form>
             <section class="contact-modal-success" hidden data-contact-modal-target="success">

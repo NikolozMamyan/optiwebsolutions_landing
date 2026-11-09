@@ -1,8 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['form', 'fullName', 'success', 'successTitle'];
-    static values = { urls: Array, nameError: String };
+    static targets = ['form', 'firstName', 'lastName', 'success', 'successTitle', 'error', 'submitButton'];
+    static values = { urls: Array, nameError: String, errorMessage: String, rateLimitMessage: String, csrfMessage: String };
 
     open(event) {
         const link = event.target.closest('a[href]');
@@ -17,30 +17,67 @@ export default class extends Controller {
 
         this.trigger = link;
         this.formTarget.reset();
-        this.fullNameTarget.setCustomValidity('');
+        for (const field of this.formTarget.elements) field.setCustomValidity?.('');
+        this.errorTarget.hidden = true;
+        this.submitButtonTarget.disabled = false;
         this.formTarget.hidden = false;
         this.successTarget.hidden = true;
         this.element.setAttribute('aria-labelledby', 'contact-modal-title');
         this.element.setAttribute('aria-describedby', 'contact-modal-intro');
         document.documentElement.classList.add('contact-modal-open');
         this.element.showModal();
-        this.fullNameTarget.focus({ preventScroll: true });
+        this.firstNameTarget.focus({ preventScroll: true });
     }
 
-    submit(event) {
+    async submit(event) {
         event.preventDefault();
-        this.fullNameTarget.setCustomValidity(this.fullNameTarget.value.trim() ? '' : this.nameErrorValue);
+        if (this.request) return;
+        for (const field of [this.firstNameTarget, this.lastNameTarget]) {
+            field.setCustomValidity(field.value.trim() ? '' : this.nameErrorValue);
+        }
         if (!this.formTarget.reportValidity()) return;
 
-        this.formTarget.hidden = true;
-        this.successTarget.hidden = false;
-        this.element.setAttribute('aria-labelledby', 'contact-modal-success-title');
-        this.element.setAttribute('aria-describedby', 'contact-modal-success-description');
-        this.successTitleTarget.focus({ preventScroll: true });
+        const request = new AbortController();
+        this.request = request;
+        this.submitButtonTarget.disabled = true;
+        this.formTarget.setAttribute('aria-busy', 'true');
+        this.errorTarget.hidden = true;
+        try {
+            const response = await fetch(this.formTarget.action, {
+                method: 'POST', body: new FormData(this.formTarget), credentials: 'same-origin',
+                headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, signal: request.signal,
+            });
+            const data = await response.json();
+            if (!response.ok || !data.success) {
+                for (const [name, message] of Object.entries(data.errors ?? {})) {
+                    this.formTarget.elements.namedItem(name)?.setCustomValidity(message);
+                }
+                this.formTarget.reportValidity();
+                this.errorTarget.textContent = response.status === 429 ? this.rateLimitMessageValue : response.status === 403 ? this.csrfMessageValue : this.errorMessageValue;
+                this.errorTarget.hidden = false;
+                return;
+            }
+            this.formTarget.hidden = true;
+            this.successTarget.hidden = false;
+            this.element.setAttribute('aria-labelledby', 'contact-modal-success-title');
+            this.element.setAttribute('aria-describedby', 'contact-modal-success-description');
+            this.successTitleTarget.focus({ preventScroll: true });
+        } catch (error) {
+            if (error.name !== 'AbortError') {
+                this.errorTarget.textContent = this.errorMessageValue;
+                this.errorTarget.hidden = false;
+            }
+        } finally {
+            if (this.request === request) {
+                this.request = null;
+                this.submitButtonTarget.disabled = false;
+                this.formTarget.removeAttribute('aria-busy');
+            }
+        }
     }
 
-    clearValidation() {
-        this.fullNameTarget.setCustomValidity('');
+    clearValidation(event) {
+        event.target.setCustomValidity?.('');
     }
 
     keydown(event) {
@@ -69,11 +106,15 @@ export default class extends Controller {
     }
 
     closed() {
+        this.request?.abort();
+        this.request = null;
+        this.formTarget.removeAttribute('aria-busy');
         document.documentElement.classList.remove('contact-modal-open');
         if (this.trigger?.isConnected) this.trigger.focus({ preventScroll: true });
     }
 
     disconnect() {
+        this.request?.abort();
         if (this.element.open) this.element.close();
         document.documentElement.classList.remove('contact-modal-open');
     }
