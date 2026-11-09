@@ -87,6 +87,7 @@
     <body data-controller="reveal{% if analytics_enabled %} analytics{% endif %}"{% if analytics_enabled %} data-analytics-id-value="{{ google_analytics_id }}"{% endif %}>
         <a class="skip-link" href="#contenu">{{ 'Aller au contenu'|trans }}</a>
         {% block body %}{% endblock %}
+        {% include 'partials/_contact_modal.html.twig' %}
         {% if analytics_enabled %}{% include 'partials/_analytics_consent.html.twig' %}{% endif %}
     </body>
 </html>

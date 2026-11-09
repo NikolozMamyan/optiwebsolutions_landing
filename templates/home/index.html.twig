@@ -51,29 +51,43 @@
             </div>
         </section>
 
-        <section class="section container" id="approche" aria-labelledby="approche-title">
+        <section class="section container approach-section" id="approche" aria-labelledby="approche-title">
             <div class="section-heading reveal">
                 <p class="eyebrow">{{ 'Simple, clair, ensemble'|trans }}</p>
-                <h2 id="approche-title">{{ 'De votre idée au concret,'|trans }}<br><em>{{ 'sans les complications.'|trans }}</em></h2>
-                <p>{{ 'Vous connaissez votre métier. Nous donnons vie à vos idées.'|trans }}</p><p class="home-entity-summary">{{ 'home.entity_summary'|trans }}</p>
+                <h2 id="approche-title">{{ 'De votre idée au concret,'|trans }} <em>{{ 'sans les complications.'|trans }}</em></h2>
+                <p class="approach-intro">{{ 'Vous connaissez votre métier. Nous donnons vie à vos idées.'|trans }}</p>
             </div>
-            <div class="steps-grid">
+            <ol class="approach-journey" role="list">
                 {% for step in [
-                    { title: 'Échange & cadrage'|trans, text: 'On parle de votre activité, de vos besoins et de vos objectifs. Ensemble, on définit un périmètre clair et les bonnes priorités.'|trans },
-                    { title: 'Design & développement'|trans, text: 'On conçoit votre solution sur mesure, avec des points réguliers. Vous suivez l’avancement et vos retours font partie du projet.'|trans },
-                    { title: 'Tests & mise en ligne'|trans, text: 'On vérifie les fonctionnalités, la performance et l’affichage sur mobile. Puis on met en ligne et on vous accompagne à la prise en main.'|trans },
-                    { title: 'Suivi & évolution'|trans, text: 'Votre entreprise évolue, vos outils aussi. Maintenance, infogérance et nouvelles fonctionnalités : on garde le contact.'|trans }
+                    { visual: 'discovery', title: 'Échange & cadrage'|trans, text: 'home.approach.discovery'|trans, outcome: 'home.approach.discovery_outcome'|trans },
+                    { visual: 'design', title: 'Design & développement'|trans, text: 'home.approach.design'|trans, outcome: 'home.approach.design_outcome'|trans },
+                    { visual: 'launch', title: 'Tests & mise en ligne'|trans, text: 'home.approach.launch'|trans, outcome: 'home.approach.launch_outcome'|trans },
+                    { visual: 'support', title: 'Suivi & évolution'|trans, text: 'home.approach.support'|trans, outcome: 'home.approach.support_outcome'|trans }
                 ] %}
-                    <article class="step-card reveal">
-                        <span class="step-number">0{{ loop.index }}</span>
-                        <h3>{{ step.title }}</h3>
-                        <p>{{ step.text }}</p>
-                    </article>
+                    <li class="approach-step approach-step-{{ step.visual }} reveal">
+                        <div class="approach-visual" aria-hidden="true">
+                            <img class="approach-image" src="{{ asset('approach/' ~ step.visual ~ '.webp') }}" srcset="{{ asset('approach/' ~ step.visual ~ '-480.webp') }} 480w, {{ asset('approach/' ~ step.visual ~ '.webp') }} 960w" sizes="(max-width: 640px) 45vw, (max-width: 960px) 40vw, 260px" alt="" width="960" height="640" loading="lazy" decoding="async">
+                            <span class="approach-outcome"><span class="approach-outcome-dot"></span>{{ step.outcome }}</span>
+                        </div>
+                        <div class="approach-caption">
+                            <span class="approach-number" aria-hidden="true">0{{ loop.index }}</span>
+                            <h3>{{ step.title }}</h3>
+                            <p>{{ step.text }}</p>
+                        </div>
+                    </li>
                 {% endfor %}
+            </ol>
+            <p class="approach-context reveal">{{ 'home.entity_summary'|trans }}</p>
+        </section>
+
+        <section class="container cta-strip reveal" aria-labelledby="approach-contact-title">
+            <div class="cta-copy">
+                <p>{{ 'Une idée en tête ?'|trans }}</p>
+                <h2 id="approach-contact-title"><em>{{ 'On lui donne une suite.'|trans }}</em></h2>
             </div>
-            <div class="cta-strip reveal">
-                <p>{{ 'Une idée en tête ?'|trans }} <strong>{{ 'On lui donne une suite.'|trans }}</strong></p>
-                <div class="strip-actions"><a class="button button-dark" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ 'On en discute'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a><a class="button button-outline" href="#solutions">{{ 'Voir les possibilités'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></div>
+            <div class="strip-actions">
+                <a class="button cta-phone" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'Contacter OptiWebSolutions sur WhatsApp'|trans }} : {{ contact_phone_display }}">{{ ui.icon('whatsapp') }} <span>{{ contact_phone }}</span><span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
+                <a class="button button-outline" href="#solutions">{{ 'Voir les possibilités'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a>
             </div>
         </section>
 
@@ -107,11 +121,10 @@
             </div>
             <article class="ai-card reveal">
                 <div class="ai-copy"><p class="eyebrow">{{ 'Moins de tâches, plus de valeur'|trans }}</p><h3>{{ 'L’IA, là où elle'|trans }}<br><em>{{ 'vous simplifie la vie.'|trans }}</em></h3><p>{{ 'Automatiser une tâche répétitive, faciliter la recherche d’informations ou connecter vos outils : on étudie ensemble ce qui peut vous faire gagner du temps, avec l’IA lorsque c’est pertinent.'|trans }}</p><div class="feature-tags"><span>{{ ui.icon('sparkles') }} {{ 'Assistants métier'|trans }}</span><span>{{ ui.icon('code') }} {{ 'Intégrations'|trans }}</span><span>{{ ui.icon('clock') }} {{ 'Automatisation'|trans }}</span></div></div>
-                <div class="ai-visual" aria-hidden="true">
-                    <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-                    <span class="orbit-node node-one">{{ ui.icon('mail') }}</span><span class="orbit-node node-two">{{ ui.icon('chart') }}</span><span class="orbit-node node-three">{{ ui.icon('code') }}</span>
-                    <div class="ai-core">{{ ui.icon('sparkles') }}</div><span class="ai-caption"><span class="status-dot"></span> {{ 'Vos outils, connectés.'|trans }}</span>
-                </div>
+                <figure class="ai-image">
+                    <img src="{{ asset('ai/connected-tools.webp') }}" srcset="{{ asset('ai/connected-tools-480.webp') }} 480w, {{ asset('ai/connected-tools.webp') }} 960w" sizes="(max-width: 640px) 85vw, 420px" alt="" width="960" height="640" loading="lazy" decoding="async">
+                    <figcaption><span class="status-dot" aria-hidden="true"></span>{{ 'Vos outils, connectés.'|trans }}</figcaption>
+                </figure>
             </article>
         </section>
 
@@ -207,13 +220,46 @@
         </section>
 
         <section class="section container ideas-section" id="offres" aria-labelledby="offres-title">
-            <div class="section-heading reveal"><p class="eyebrow">{{ 'Des pistes pour vous inspirer'|trans }}</p><h2 id="offres-title">{{ 'Une idée aujourd’hui.'|trans }}<br><em>{{ 'Votre projet demain.'|trans }}</em></h2><p>{{ 'Voici quelques idées pour faire avancer votre entreprise. On imagine la suite ensemble, autour de vos besoins.'|trans }}</p></div>
-            <div class="pricing-grid">
-                <article class="price-card reveal"><span class="card-kicker">{{ 'Présence en ligne'|trans }}</span><h3>{{ 'Site web'|trans }}</h3><p class="price-description">{{ 'Une présence qui vous ressemble et donne envie de découvrir votre entreprise.'|trans }}</p><ul class="check-list"><li>{{ 'Site vitrine d’entreprise'|trans }}</li><li>{{ 'Boutique en ligne'|trans }}</li><li>{{ 'Catalogue digital interactif'|trans }}</li><li>{{ 'Présentation de vos services'|trans }}</li><li>{{ 'Prise de rendez-vous en ligne'|trans }}</li><li>{{ 'Connexion à vos outils'|trans }}</li></ul><a class="button button-outline" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ 'Imaginons votre site'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></article>
-                <article class="price-card price-card-featured reveal"><span class="recommended">{{ 'Pensé pour votre métier'|trans }}</span><span class="card-kicker">{{ 'Applications & plateformes'|trans }}</span><h3>{{ 'Webapp & SaaS'|trans }}</h3><p class="price-description">{{ 'Un outil sur mesure pour simplifier votre quotidien et donner vie à vos idées.'|trans }}</p><ul class="check-list"><li>{{ 'Espace client personnalisé'|trans }}</li><li>{{ 'Tableau de bord métier'|trans }}</li><li>{{ 'Plateforme e-learning'|trans }}</li><li>{{ 'Logiciel de gestion'|trans }}</li><li>{{ 'Automatisation de tâches'|trans }}</li><li>{{ 'Intégrations à vos outils'|trans }}</li></ul><a class="button button-dark" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ 'Créons votre outil'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></article>
-                <article class="price-card reveal"><span class="card-kicker">{{ 'Sérénité au quotidien'|trans }}</span><h3>{{ 'Infogérance'|trans }}</h3><p class="price-description">{{ 'Des pistes pour rendre votre environnement informatique plus simple à gérer.'|trans }}</p><ul class="check-list"><li>{{ 'Organisation de votre hébergement'|trans }}</li><li>{{ 'Suivi de vos services'|trans }}</li><li>{{ 'Maintenance et mises à jour'|trans }}</li><li>{{ 'Accompagnement de votre équipe'|trans }}</li><li>{{ 'Conseil technique au quotidien'|trans }}</li><li>{{ 'Évolution de votre infrastructure'|trans }}</li></ul><a class="button button-outline" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ 'Parlons de votre IT'|trans }} <span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a></article>
+            <div class="section-heading reveal"><p class="eyebrow">{{ 'Des pistes pour vous inspirer'|trans }}</p><h2 id="offres-title">{{ 'Une idée aujourd’hui.'|trans }} <em>{{ 'Votre projet demain.'|trans }}</em></h2><p>{{ 'Voici quelques idées pour faire avancer votre entreprise. On imagine la suite ensemble, autour de vos besoins.'|trans }}</p></div>
+            <div class="ideas-grid">
+                <article class="idea-card idea-card-website reveal">
+                    <div class="idea-card-top">
+                        <div class="idea-copy">
+                            <p class="card-kicker">{{ 'Présence en ligne'|trans }}</p>
+                            <h3>{{ 'Site web'|trans }}</h3>
+                            <p class="idea-description">{{ 'home.ideas.website_description'|trans }}</p>
+                        </div>
+                        <div class="idea-visual"><img src="{{ asset('ideas/website.webp') }}" srcset="{{ asset('ideas/website-480.webp') }} 480w, {{ asset('ideas/website.webp') }} 960w" sizes="(max-width: 960px) 90vw, 350px" alt="" width="960" height="640" loading="lazy" decoding="async"></div>
+                    </div>
+                    <ul class="idea-tags" role="list"><li>{{ 'Site vitrine d’entreprise'|trans }}</li><li>{{ 'Boutique en ligne'|trans }}</li><li>{{ 'Catalogue digital interactif'|trans }}</li></ul>
+                    <div class="idea-footer"><a class="button button-outline" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'Imaginons votre site'|trans }}"><span class="idea-button-label">{{ 'Imaginons votre site'|trans }}</span><span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a><span class="idea-index" aria-hidden="true">01</span></div>
+                </article>
+                <article class="idea-card idea-card-featured reveal">
+                    <div class="idea-card-top">
+                        <div class="idea-copy">
+                            <p class="card-kicker">{{ 'Applications & plateformes'|trans }}</p>
+                            <h3>{{ 'Webapp & SaaS'|trans }}</h3>
+                            <p class="idea-description">{{ 'home.ideas.application_description'|trans }}</p>
+                        </div>
+                        <div class="idea-visual"><img src="{{ asset('ideas/application-soft.webp') }}" srcset="{{ asset('ideas/application-soft-480.webp') }} 480w, {{ asset('ideas/application-soft.webp') }} 960w" sizes="(max-width: 960px) 90vw, 350px" alt="" width="960" height="640" loading="lazy" decoding="async"><span class="idea-recommended">{{ ui.icon('sparkles') }} {{ 'Pensé pour votre métier'|trans }}</span></div>
+                    </div>
+                    <ul class="idea-tags" role="list"><li>{{ 'Espace client personnalisé'|trans }}</li><li>{{ 'Tableau de bord métier'|trans }}</li><li>{{ 'Automatisation'|trans }}</li></ul>
+                    <div class="idea-footer"><a class="button button-dark" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'Créons votre outil'|trans }}"><span class="idea-button-label">{{ 'Créons votre outil'|trans }}</span><span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a><span class="idea-index" aria-hidden="true">02</span></div>
+                </article>
+                <article class="idea-card idea-card-managed reveal">
+                    <div class="idea-card-top">
+                        <div class="idea-copy">
+                            <p class="card-kicker">{{ 'Sérénité au quotidien'|trans }}</p>
+                            <h3>{{ 'Infogérance'|trans }}</h3>
+                            <p class="idea-description">{{ 'home.ideas.managed_description'|trans }}</p>
+                        </div>
+                        <div class="idea-visual"><img src="{{ asset('ideas/managed.webp') }}" srcset="{{ asset('ideas/managed-480.webp') }} 480w, {{ asset('ideas/managed.webp') }} 960w" sizes="(max-width: 960px) 90vw, 350px" alt="" width="960" height="640" loading="lazy" decoding="async"></div>
+                    </div>
+                    <ul class="idea-tags" role="list"><li>{{ 'home.ideas.hosting'|trans }}</li><li>{{ 'home.ideas.maintenance'|trans }}</li><li>{{ 'home.ideas.support'|trans }}</li></ul>
+                    <div class="idea-footer"><a class="button button-outline" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'Parlons de votre IT'|trans }}"><span class="idea-button-label">{{ 'Parlons de votre IT'|trans }}</span><span class="button-arrow">{{ ui.icon('arrow-up-right') }}</span></a><span class="idea-index" aria-hidden="true">03</span></div>
+                </article>
             </div>
-            <div class="pricing-reassurance"><span>{{ ui.icon('check') }} {{ 'Des idées comme point de départ'|trans }}</span><span>{{ ui.icon('check') }} {{ 'Un projet adapté à vos besoins'|trans }}</span><span>{{ ui.icon('check') }} {{ 'Un interlocuteur dédié'|trans }}</span></div>
+            <div class="ideas-reassurance"><span>{{ ui.icon('check') }} {{ 'Des idées comme point de départ'|trans }}</span><span>{{ ui.icon('check') }} {{ 'Un projet adapté à vos besoins'|trans }}</span><span>{{ ui.icon('check') }} {{ 'Un interlocuteur dédié'|trans }}</span></div>
         </section>
 
         {% include 'partials/_faq.html.twig' with {

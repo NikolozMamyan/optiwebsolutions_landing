@@ -40,5 +40,6 @@
                 <a class="text-link error-projects" href="{{ home_url }}#solutions">{{ 'error.404.projects'|trans({}, 'messages', error_locale) }} {{ ui.icon('arrow-up-right') }}</a>
             </div>
         </main>
+        {% include 'partials/_contact_modal.html.twig' with {'contact_modal_locale': error_locale} %}
     </body>
 </html>
